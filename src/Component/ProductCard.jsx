@@ -5,18 +5,7 @@ import { FaDollarSign, FaStar } from "react-icons/fa6";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ product }) => {
-  const { _id, name, department, photo, description, price, brand, rating } =
-    product;
-  let dep = department;
-  if (department === "electronics") {
-    dep = "Electronics";
-  } else if (department === "furniture") {
-    dep = "Furniture";
-  } else if (department === "appliances") {
-    dep = "Appliances";
-  }
-
-  console.log(product);
+  const { _id, name, photo, description, price, brand, rating } = product;
 
   return (
     <div>

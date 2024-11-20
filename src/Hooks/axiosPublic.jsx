@@ -1,10 +1,8 @@
 import axios from "axios";
-
-export const baseURL2 = "http://localhost:5000";
-// export const baseURL2 = "https://happy-shopping-server.vercel.app";
+import { baseURL } from "./useAxios";
 
 const axiosPublic = axios.create({
-  baseURL: baseURL2,
+  baseURL: baseURL,
   withCredentials: true,
 });
 
