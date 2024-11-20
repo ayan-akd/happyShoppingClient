@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
 import { AuthContext } from "../Provider/AuthProvider";
 import { motion } from "framer-motion";
+import axiosPublic from "../Hooks/axiosPublic";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
@@ -88,6 +89,7 @@ const Register = () => {
           displayName: name,
         });
         navigate(location?.state ? location.state : "/");
+        axiosPublic.post("/users", userInfo);
         toast("Registered successfully", {
           icon: "✅",
           style: {
@@ -108,7 +110,6 @@ const Register = () => {
         });
       });
   };
-
 
   return (
     <div className="bg-base-200">

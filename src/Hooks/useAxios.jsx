@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
 export const baseURL = "https://wanderland-server.vercel.app";
-export const baseURL2 = "https://wanderland-server.vercel.app";
+// export const baseURL = "http://localhost:5000";
 
 const axiosSecure = axios.create({
   baseURL: baseURL,
