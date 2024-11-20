@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { BiLogoGoogle } from "react-icons/bi";
 import { useContext } from "react";
 import { motion } from "framer-motion";
@@ -8,14 +8,13 @@ import { AuthContext } from "../Provider/AuthProvider";
 const Login = () => {
   const { signInUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation();
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     signInUser(email, password)
       .then(() => {
-        navigate(location?.state ? location.state : "/");
+        navigate("/profile");
         toast("Login Successful", {
           icon: "✅",
           style: {
@@ -36,30 +35,6 @@ const Login = () => {
         });
       });
   };
-  // const handleGoogleLogin = () => {
-  //   googleLogin()
-  //     .then(() => {
-  //       navigate(location?.state ? location.state : "/");
-  //       toast("Login Successful", {
-  //         icon: "✅",
-  //         style: {
-  //           borderRadius: "10px",
-  //           background: "#333",
-  //           color: "#fff",
-  //         },
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       toast(error.message, {
-  //         icon: "❌",
-  //         style: {
-  //           borderRadius: "10px",
-  //           background: "#333",
-  //           color: "#fff",
-  //         },
-  //       });
-  //     });
-  // };
   return (
     <div className="bg-base-200">
       <div className="max-w-screen-xl mx-auto">

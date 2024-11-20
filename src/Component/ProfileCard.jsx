@@ -44,7 +44,7 @@ const ProfileCard = ({ userData }) => {
           >
             <div className="w-full h-1/2 mt-12 mb-6 px-2 flex flex-col justify-center items-center space-y-1">
               <h1 className="font-bold">Name: {user?.displayName}</h1>
-              <h1 className="font-bold">Role: {userData?.role}</h1>
+              <h1 className="font-bold">Role: {userData?.role?.toUpperCase()}</h1>
               <h1 className="font-bold">Email: {userData?.email}</h1>
               <h1 className="font-bold text-center">
                 Address

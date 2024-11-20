@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
@@ -9,7 +9,6 @@ import axiosPublic from "../Hooks/axiosPublic";
 const Register = () => {
   const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation();
   const handleRegister = (e) => {
     e.preventDefault();
     const firstName = e.target.fName.value;
@@ -88,7 +87,7 @@ const Register = () => {
         updateProfile(result.user, {
           displayName: name,
         });
-        navigate(location?.state ? location.state : "/");
+        navigate("/profile");
         axiosPublic.post("/users", userInfo);
         toast("Registered successfully", {
           icon: "✅",

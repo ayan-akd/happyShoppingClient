@@ -13,7 +13,7 @@ const Profile = () => {
     <div className="max-w-screen-xl mx-auto p-10">
           <ProfileCard userData={userData}></ProfileCard>
           <div>
-          <h1 className="text-3xl md:text-5xl text-center my-12">
+          <h1 className="text-3xl md:text-5xl text-center pt-16 my-12">
             Purchase <span className="text-grn">History</span>
           </h1>
           <h1 className="text-center font-bold text-3xl">
