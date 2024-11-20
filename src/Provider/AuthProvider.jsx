@@ -12,12 +12,14 @@ import auth from "../firebase/firebaseConfig";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../Hooks/useAxios";
+import axiosPublic from "../Hooks/axiosPublic";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
 
   //google login
@@ -54,29 +56,18 @@ const AuthProvider = ({ children }) => {
     },
   });
 
+  axiosPublic.get(`/users/${user?.email}`).then((data) => {
+    setUserInfo(data.data);
+  });
+
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user?.email;
-      const loggedUser = { email: userEmail };
+      // const userEmail = currentUser?.email || user?.email;
+      // const loggedUser = { email: userEmail };
       setUser(currentUser);
+      // console.log("hit");
+      
       setLoading(false);
-      // if (currentUser) {
-      //   axios
-      //     .post(`${baseURL}/jwt`, loggedUser, {
-      //       withCredentials: true,
-      //     })
-      //     .then((res) => {
-      //       console.log("token response", res.data);
-      //     });
-      // } else {
-      //   axios
-      //     .post(`${baseURL}/logout`, loggedUser, {
-      //       withCredentials: true,
-      //     })
-      //     .then((res) => {
-      //       console.log("logout response", res.data);
-      //     });
-      // }
     });
   });
 

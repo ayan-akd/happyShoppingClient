@@ -66,7 +66,7 @@ const Navbar = () => {
           }
           to={"/add"}
         >
-          Add Blog
+          Add Products
         </NavLink>
       </li>
       <li>
