@@ -43,16 +43,16 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  // const { data: blogs, isLoading } = useQuery({
-  //   queryKey: ["blogs"],
-  //   queryFn: async () => {
-  //     const response = await axios.get(
-  //       `${baseURL}/blogs`,
-  //       { withCredentials: true}
-  //     );
-  //     return response.data;
-  //   },
-  // });
+  const { data: blogs, isLoading } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: async () => {
+      const response = await axios.get(
+        `${baseURL}/blogs`,
+        { withCredentials: true}
+      );
+      return response.data;
+    },
+  });
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {

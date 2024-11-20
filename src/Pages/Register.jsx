@@ -1,5 +1,4 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { BiLogoGoogle } from "react-icons/bi";
 import { useContext } from "react";
 import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
@@ -7,15 +6,38 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { motion } from "framer-motion";
 
 const Register = () => {
-  const { googleLogin, createUser } = useContext(AuthContext);
+  const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const handleRegister = (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const photo = e.target.photo.value;
+    const firstName = e.target.fName.value;
+    const middleName = e.target.mName.value;
+    const lastName = e.target.lName.value;
+    const name = middleName
+      ? `${firstName} ${middleName} ${lastName}`
+      : `${firstName} ${lastName}`;
+    const state = e.target.state.value;
+    const city = e.target.city.value;
+    const zip = e.target.zip.value;
+    const street = e.target.street.value;
+    const cardNumber = e.target.cardNumber.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const userInfo = {
+      name: {
+        firstName,
+        middleName,
+        lastName,
+      },
+      state,
+      city,
+      zip,
+      street,
+      cardNumber,
+      email,
+      role: "guest",
+    };
 
     // validation
     if (password.length < 6) {
@@ -48,13 +70,22 @@ const Register = () => {
         },
       });
       return;
+    } else if (!/^\d{16}$/.test(cardNumber)) {
+      toast("Card number must be exactly 16 digits", {
+        icon: "❌",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      return;
     }
 
     createUser(email, password)
       .then((result) => {
         updateProfile(result.user, {
           displayName: name,
-          photoURL: photo,
         });
         navigate(location?.state ? location.state : "/");
         toast("Registered successfully", {
@@ -78,30 +109,6 @@ const Register = () => {
       });
   };
 
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then(() => {
-        navigate(location?.state ? location.state : "/");
-        toast("Registered successfully", {
-          icon: "✅",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      })
-      .catch((error) => {
-        toast(error.message, {
-          icon: "❌",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      });
-  };
 
   return (
     <div className="bg-base-200">
@@ -114,29 +121,83 @@ const Register = () => {
               </h1>
             </div>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <form onSubmit={handleRegister} className="card-body">
+              <form onSubmit={handleRegister} className="p-5">
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text text-xl">Your Name</span>
+                    <span className="label-text text-xl">First Name</span>
                   </label>
                   <input
                     type="text"
-                    placeholder="Your Name....."
-                    name="name"
+                    placeholder="First Name....."
+                    name="fName"
                     required
                     className="input input-bordered"
                   />
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text text-xl">Photo</span>
+                    <span className="label-text text-xl">Middle Name</span>
                   </label>
                   <input
                     type="text"
-                    placeholder="Photo Url....."
-                    name="photo"
+                    placeholder="Middle Name (Optional)"
+                    name="mName"
                     className="input input-bordered"
                   />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text text-xl">Last Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Last Name....."
+                    name="lName"
+                    required
+                    className="input input-bordered"
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text text-xl">Mailing Address</span>
+                  </label>
+                  <div className="grid grid-cols-3 gap-4">
+                    <input
+                      type="text"
+                      placeholder="State....."
+                      name="state"
+                      required
+                      className="input input-bordered"
+                    />
+                    <input
+                      type="text"
+                      placeholder="City....."
+                      name="city"
+                      required
+                      className="input input-bordered"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Zip Code....."
+                      name="zip"
+                      required
+                      className="input input-bordered"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Street Address....."
+                      name="street"
+                      required
+                      className="input input-bordered col-span-3"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Card Number....."
+                      name="cardNumber"
+                      required
+                      className="input input-bordered col-span-3"
+                    />
+                  </div>
                 </div>
                 <div className="form-control">
                   <label className="label">
@@ -181,22 +242,8 @@ const Register = () => {
                   >
                     Register
                   </motion.button>
-                  <p className="text-center">Or</p>
                 </div>
               </form>
-              <div className="flex items-center justify-center mb-5 px-8">
-                <motion.button
-                  whileHover={{
-                    scale: 1.2,
-                    transition: { duration: 0.1 },
-                  }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={handleGoogleLogin}
-                  className="w-full btn bg-grn text-white hover:bg-grn"
-                >
-                  <BiLogoGoogle></BiLogoGoogle>Register with Google
-                </motion.button>
-              </div>
             </div>
           </div>
         </div>

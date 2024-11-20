@@ -1,12 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { BiLogoGoogle } from "react-icons/bi";
+// import { BiLogoGoogle } from "react-icons/bi";
 import { useContext } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
-  const { googleLogin, signInUser } = useContext(AuthContext);
+  const { signInUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const handleLogin = (e) => {
@@ -36,30 +36,30 @@ const Login = () => {
         });
       });
   };
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then(() => {
-        navigate(location?.state ? location.state : "/");
-        toast("Login Successful", {
-          icon: "✅",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      })
-      .catch((error) => {
-        toast(error.message, {
-          icon: "❌",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      });
-  };
+  // const handleGoogleLogin = () => {
+  //   googleLogin()
+  //     .then(() => {
+  //       navigate(location?.state ? location.state : "/");
+  //       toast("Login Successful", {
+  //         icon: "✅",
+  //         style: {
+  //           borderRadius: "10px",
+  //           background: "#333",
+  //           color: "#fff",
+  //         },
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       toast(error.message, {
+  //         icon: "❌",
+  //         style: {
+  //           borderRadius: "10px",
+  //           background: "#333",
+  //           color: "#fff",
+  //         },
+  //       });
+  //     });
+  // };
   return (
     <div className="bg-base-200">
       <div className="max-w-screen-xl mx-auto">
@@ -115,10 +115,10 @@ const Login = () => {
                   >
                     Login
                   </motion.button>
-                  <p className="text-center">Or</p>
+                  {/* <p className="text-center">Or</p> */}
                 </div>
               </form>
-              <div className="flex items-center justify-center mb-5 px-8">
+              {/* <div className="flex items-center justify-center mb-5 px-8">
                 <motion.button
                   whileHover={{
                     scale: 1.2,
@@ -130,7 +130,7 @@ const Login = () => {
                 >
                   <BiLogoGoogle></BiLogoGoogle>Login with Google
                 </motion.button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
