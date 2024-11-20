@@ -12,16 +12,16 @@ import auth from "../firebase/firebaseConfig";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../Hooks/useAxios";
-import axiosPublic from "../Hooks/axiosPublic";
+import axiosPublic, { baseURL2 } from "../Hooks/axiosPublic";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
+  const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [userData, setUserData] = useState(null);
+  const [roleLoading, setRoleLoading] = useState(true);
   //google login
   const googleLogin = () => {
     setLoading(true);
@@ -48,28 +48,30 @@ const AuthProvider = ({ children }) => {
   const { data: blogs, isLoading } = useQuery({
     queryKey: ["blogs"],
     queryFn: async () => {
-      const response = await axios.get(
-        `${baseURL}/blogs`,
-        { withCredentials: true}
-      );
+      const response = await axios.get(`${baseURL}/blogs`, {
+        withCredentials: true,
+      });
       return response.data;
     },
   });
 
-  axiosPublic.get(`/users/${user?.email}`).then((data) => {
-    setUserInfo(data.data);
-  });
-
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      // const userEmail = currentUser?.email || user?.email;
-      // const loggedUser = { email: userEmail };
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
       setUser(currentUser);
-      // console.log("hit");
-      
       setLoading(false);
+
+      if (currentUser) {
+        axiosPublic.get(`/users/${userEmail}`).then((res) => {
+          setUserData(res.data);
+          setRoleLoading(false);
+        });
+      }
     });
-  });
+    return () => {
+      unsubscribe();
+    };
+  }, [user]);
 
   const authenticate = {
     user,
@@ -80,6 +82,8 @@ const AuthProvider = ({ children }) => {
     loading,
     blogs,
     isLoading,
+    roleLoading,
+    userData,
   };
 
   return (
