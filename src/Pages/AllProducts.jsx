@@ -1,30 +1,33 @@
-import BlogCard from "../Component/BlogCard";
+import ProductCard from "../Component/ProductCard";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Loading from "../Component/Loading";
 
-const AllBlogs = () => {
-  const { blogs, isLoading } = useContext(AuthContext);
-  const [selectedCategory, setSelectedCategory] = useState("");
+const AllProducts = () => {
+  const { isLoading, products } = useContext(AuthContext);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
   useEffect(() => {
-    if (blogs) {
-      const results = blogs.filter((blog) => {
-        if (selectedCategory === "all") {
-          return blog.name.toLowerCase().includes(searchValue.toLowerCase());
+    if (products) {
+      const results = products.filter((product) => {
+        if (selectedDepartment === "all") {
+          return product.name.toLowerCase().includes(searchValue.toLowerCase());
         }
-        const categoryMatch = blog.category
-          ? blog.category.toLowerCase().includes(selectedCategory.toLowerCase())
+        const departmentMatch = product.department
+          ? product.department
+              .toLowerCase()
+              .includes(selectedDepartment.toLowerCase())
           : false;
-        const searchMatch = blog.name
+        const searchMatch = product.name
           .toLowerCase()
           .includes(searchValue.toLowerCase());
-        return categoryMatch && searchMatch;
+        return departmentMatch && searchMatch;
       });
-      setFilteredBlogs(results);
+      setFilteredProducts(results);
     }
-  }, [blogs, searchValue, selectedCategory]);
+  }, [products, searchValue, selectedDepartment]);
   return (
     <div
       className="hero min-h-screen"
@@ -37,7 +40,7 @@ const AllBlogs = () => {
       ) : (
         <div className="max-w-screen-xl mx-auto">
           <h1 className="text-3xl md:text-5xl text-center my-12">
-            Check Out Our <span className="text-grn">Blogs</span>
+            Check Out Our <span className="text-grn">products</span>
           </h1>
           <div className="join flex mt-12 justify-center">
             <input
@@ -67,25 +70,24 @@ const AllBlogs = () => {
             <div className="md:w-96">
               <label className="input-group flex">
                 <select
-                  name="category"
+                  name="department"
                   className="select select-bordered w-full"
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  value={selectedDepartment}
+                  onChange={(e) => setSelectedDepartment(e.target.value)}
                 >
                   <option value="all">All</option>
-                  <option value="destinations">Destinations</option>
-                  <option value="tips">Tips & Advice</option>
-                  <option value="stories">Stories & Experiences</option>
-                  <option value="food">Food & Cuisine</option>
-                  <option value="culture">Culture & Insights</option>
+                  {}
+                  <option value="electronics">Electronics</option>
+                  <option value="furniture">Furniture</option>
+                  <option value="appliances">Appliances</option>
                 </select>
               </label>
             </div>
           </div>
-          {filteredBlogs.length > 0 ? (
+          {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-              {filteredBlogs.map((blog) => (
-                <BlogCard key={blog._id} blog={blog}></BlogCard>
+              {filteredProducts.map((product) => (
+                <ProductCard key={product._id} product={product}></ProductCard>
               ))}
             </div>
           ) : (
@@ -101,4 +103,4 @@ const AllBlogs = () => {
   );
 };
 
-export default AllBlogs;
+export default AllProducts;

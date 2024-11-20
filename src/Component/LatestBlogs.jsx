@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-import BlogCard from "./BlogCard";
+import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Loading from "./Loading";
 
 const LatestBlogs = () => {
-  const { blogs, isLoading } = useContext(AuthContext);
+  const { products, isLoading } = useContext(AuthContext);
 
   if (!isLoading) {
-    const sortedBlogs = blogs.slice().sort((a, b) => {
+    const sortedBlogs = products.slice().sort((a, b) => {
       const timestampA = new Date(a.timestamp);
       const timestampB = new Date(b.timestamp);
       return timestampB - timestampA;
@@ -30,11 +30,11 @@ const LatestBlogs = () => {
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
             {latestBlogs.map((blog) => (
-              <BlogCard blog={blog} key={blog._id}></BlogCard>
+              <ProductCard blog={blog} key={blog._id}></ProductCard>
             ))}
           </div>
           <div className="flex justify-center my-12">
-            <Link to={"/blogs"}>
+            <Link to={"/products"}>
               <motion.button
                 whileHover={{
                   scale: 1.2,
@@ -51,7 +51,7 @@ const LatestBlogs = () => {
       </div>
     );
   } else {
-    return <Loading></Loading>
+    return <Loading></Loading>;
   }
 };
 

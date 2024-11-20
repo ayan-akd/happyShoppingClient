@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 // import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
-
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Provider/AuthProvider";
 
@@ -110,7 +109,7 @@ const Navbar = () => {
           }
           to={"/wishlist"}
         >
-          Bookmarks
+          Cart
         </NavLink>
       </li>
     </>
@@ -183,10 +182,7 @@ const Navbar = () => {
                   <p className="text-xl md:hidden">{user?.displayName}</p>
                 </li>
                 <li>
-                  <NavLink
-                    className="text-xl"
-                    to={"/profile"}
-                  >
+                  <NavLink className="text-xl" to={"/profile"}>
                     My Profile
                   </NavLink>
                 </li>

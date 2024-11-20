@@ -9,10 +9,8 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebaseConfig";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { baseURL } from "../Hooks/useAxios";
 import axiosPublic from "../Hooks/axiosPublic";
+import Loader from "../Hooks/Loader";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -45,15 +43,17 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const { data: blogs, isLoading } = useQuery({
-    queryKey: ["blogs"],
-    queryFn: async () => {
-      const response = await axios.get(`${baseURL}/blogs`, {
-        withCredentials: true,
-      });
-      return response.data;
-    },
-  });
+  // const { data: blogs, isLoading } = useQuery({
+  //   queryKey: ["blogs"],
+  //   queryFn: async () => {
+  //     const response = await axios.get(`${baseURL}/blogs`, {
+  //       withCredentials: true,
+  //     });
+  //     return response.data;
+  //   },
+  // });
+
+  const { data: products, isLoading } = Loader("/products", "products");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -80,10 +80,10 @@ const AuthProvider = ({ children }) => {
     signInUser,
     signOutUser,
     loading,
-    blogs,
     isLoading,
     roleLoading,
     userData,
+    products,
   };
 
   return (
