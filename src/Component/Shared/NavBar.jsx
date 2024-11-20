@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const Navbar = () => {
-  const { user, signOutUser } = useContext(AuthContext);
+  const { user, signOutUser, userData } = useContext(AuthContext);
   const logOut = () => {
     signOutUser()
       .then(() => {
@@ -55,20 +55,22 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "pending"
-              : isActive
-              ? "font-extrabold bg-grn text-white mr-1"
-              : "mr-1"
-          }
-          to={"/add"}
-        >
-          Add Products
-        </NavLink>
-      </li>
+      {user && userData?.role === "admin" && (
+        <li>
+          <NavLink
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending"
+                : isActive
+                ? "font-extrabold bg-grn text-white mr-1"
+                : "mr-1"
+            }
+            to={"/add"}
+          >
+            Add Products
+          </NavLink>
+        </li>
+      )}
       <li>
         <NavLink
           className={({ isActive, isPending }) =>
@@ -80,7 +82,7 @@ const Navbar = () => {
           }
           to={"/blogs"}
         >
-          All Blogs
+          All Products
         </NavLink>
       </li>
       <li>
@@ -179,6 +181,14 @@ const Navbar = () => {
               >
                 <li>
                   <p className="text-xl md:hidden">{user?.displayName}</p>
+                </li>
+                <li>
+                  <NavLink
+                    className="text-xl"
+                    to={"/profile"}
+                  >
+                    My Profile
+                  </NavLink>
                 </li>
                 <li>
                   <a className="text-xl" onClick={logOut}>

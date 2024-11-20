@@ -12,7 +12,7 @@ import auth from "../firebase/firebaseConfig";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../Hooks/useAxios";
-import axiosPublic, { baseURL2 } from "../Hooks/axiosPublic";
+import axiosPublic from "../Hooks/axiosPublic";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
