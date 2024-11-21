@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram, FaTwitch, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 const Footer = () => {
   return (
     <div className="bg-cyan-100 bg-opacity-50 backdrop-blur-lg">
@@ -7,10 +7,10 @@ const Footer = () => {
           <img className="w-6/12 md:w-2/12 mr-3" src="/logo.png" alt="" />
           <div>
             <p className="text-2xl lg:text-4xl ">
-              Wander
-              <span className="font-semibold text-ylw">land</span>
+              Happy
+              <span className="font-semibold text-ylw">Shopping</span>
               <br />
-              Providing reliable Blogs Since 1998
+              Providing reliable Products Since 1998
             </p>
           </div>
         </aside>
@@ -24,9 +24,6 @@ const Footer = () => {
             </a>
             <a>
               <FaTwitter></FaTwitter>
-            </a>
-            <a>
-              <FaTwitch></FaTwitch>
             </a>
             <a>
               <FaInstagram></FaInstagram>

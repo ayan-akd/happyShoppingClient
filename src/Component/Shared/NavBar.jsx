@@ -132,7 +132,7 @@ const Navbar = () => {
             <div className="flex items-center ">
               <img
                 className="md:w-3/12 w-6/12 mr-1 md:mr-3"
-                src="/logo.ico"
+                src="/logo.png"
                 alt=""
               />
               <span className="text-lg md:text-2xl">Happy</span>{" "}

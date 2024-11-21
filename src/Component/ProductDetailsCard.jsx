@@ -8,123 +8,115 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "react-router-dom";
 import { PhotoView } from "react-photo-view";
 import Loading from "./Loading";
+import { Rating, RoundedStar } from "@smastrom/react-rating";
 
 const ProductDetailsCard = ({ productDetails }) => {
-  const { _id, name, category, shortDis, longDis, photo, email, userName } =
+  const { _id, name, photo, description, price, brand, rating, department } =
     productDetails;
-  const { user } = useContext(AuthContext);
+  const { user, userData } = useContext(AuthContext);
   const productId = _id;
-  const currentEmail = user?.email;
-  const currentUserName = user?.displayName;
   const currentUserPhoto =
     user?.photoURL || "https://images2.imgbox.com/2f/46/t0HrsZQn_o.png";
-
-  let cat = category;
-  if (category === "destinations") {
-    cat = "Destinations";
-  } else if (category === "tips") {
-    cat = "Tips & Advice";
-  } else if (category === "stories") {
-    cat = "Stories & Experiences";
-  } else if (category === "food") {
-    cat = "Food & Cuisine";
-  } else if (category === "culture") {
-    cat = "Culture & Insights";
-  }
-  const axiosSecure = useAxios();
-  const {
-    data: commentsData,
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["comments", productId],
-    queryFn: async () => {
-      const response = await axiosSecure.get(`/comments/${productId}`);
-      return response.data;
-    },
-  });
-  const handleComment = (e) => {
-    e.preventDefault();
-    const comment = e.target.comment.value;
-    const newComment = {
-      comment,
-      productId,
-      currentUserName,
-      currentUserPhoto,
-      email: currentEmail,
-    };
-
-    axiosSecure.post("/comments", newComment).then((res) => {
-      const insertedId = parseInt(res.data.insertedId);
-      if (insertedId > 0) {
-        toast("Comment Added", {
-          icon: "✅",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      }
-      refetch();
-    });
+  const myStyles = {
+    itemShapes: RoundedStar,
+    activeFillColor: "#FAC827",
+    inactiveFillColor: "#dcfce7",
   };
+
+  // const axiosSecure = useAxios();
+  // const {
+  //   data: commentsData,
+  //   isLoading,
+  //   refetch,
+  // } = useQuery({
+  //   queryKey: ["comments", productId],
+  //   queryFn: async () => {
+  //     const response = await axiosSecure.get(`/comments/${productId}`);
+  //     return response.data;
+  //   },
+  // });
+  // const handleComment = (e) => {
+  //   e.preventDefault();
+  //   const comment = e.target.comment.value;
+  //   const newComment = {
+  //     comment,
+  //     productId,
+  //     currentUserName,
+  //     currentUserPhoto,
+  //     email: currentEmail,
+  //   };
+
+  //   axiosSecure.post("/comments", newComment).then((res) => {
+  //     const insertedId = parseInt(res.data.insertedId);
+  //     if (insertedId > 0) {
+  //       toast("Comment Added", {
+  //         icon: "✅",
+  //         style: {
+  //           borderRadius: "10px",
+  //           background: "#333",
+  //           color: "#fff",
+  //         },
+  //       });
+  //     }
+  //     refetch();
+  //   });
+  // };
   const location = useLocation();
   return (
     <div>
       <div className="max-w-screen-xl mx-auto my-12">
         <main className="mt-10 px-4">
-          <div className="mb-4 md:mb-0 w-full mx-auto relative">
+          <div className="mb-4 md:mb-0 w-full mx-auto relative flex lg:flex-row flex-col-reverse justify-between items-center gap-4">
             <div>
               <h2 className="text-2xl md:text-4xl font-semibold text-gray-800 leading-tight">
                 {name}
               </h2>
-              <p>by {userName}</p>
+              <p className="text-ylw mt-2">By {brand.toUpperCase()}</p>
               <a
                 href="#"
-                className="py-2 text-ylw inline-flex items-center justify-center mb-2"
+                className="py-2  inline-flex items-center justify-center mb-2"
               >
-                {cat}
+                {department.toUpperCase()}
               </a>
+              <p className="pb-6 text-gray-700 text-lg leading-relaxed">
+                {description}
+              </p>
+              <p>Price : ${price}</p>
+              <Rating
+                style={{ maxWidth: 130 }}
+                value={rating}
+                itemStyles={myStyles}
+              ></Rating>
+              <div className="flex gap-4 mt-12 text-lg leading-relaxed w-full">
+                <button className="btn bg-ylw text-white ">Add To Cart</button>
+                <div>
+                  {userData?.role === "admin" ? (
+                    <Link to={`/update/${productId}`}>
+                      <button className="btn bg-ylw text-white ">
+                        Edit Product
+                      </button>
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div>
+                  {userData?.role === "admin" ? (
+                    <button className="btn bg-ylw text-white ">Delete</button>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
             </div>
 
             <PhotoView src={photo}>
-              <img src={photo} className="w-full rounded" alt="" />
+              <img src={photo} className="w-1/2 rounded" alt="" />
             </PhotoView>
-          </div>
-
-          <div>
-            <div className="px-4 mt-12 text-gray-700 text-lg leading-relaxed w-full">
-              <p className="pb-6">
-                <span className="font-bold">About this Blog:</span> {shortDis}
-              </p>
-              <p className="pb-6">
-                <span className="font-bold">Full Blog:</span> {longDis}
-              </p>
-              {email === currentEmail ? (
-                <div className="flex justify-end">
-                  <Link to={`/update/${productId}`}>
-                    <button className="btn bg-ylw text-white ">
-                      Edit Blog
-                    </button>
-                  </Link>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
           </div>
           <div className="px-4 mt-10">
             {user ? (
-              email !== currentEmail ? (
-                <h2 className="text-3xl font-semibold">Post A Comment:</h2>
-              ) : (
-                <div>
-                  <h1 className="text-xl font-semibold mb-10">
-                    Cannot comment on your own Post.
-                  </h1>
-                </div>
-              )
+              <h2 className="text-3xl font-semibold">Post A Review:</h2>
             ) : (
               <div>
                 <h1 className="text-xl font-semibold mb-10">
@@ -136,14 +128,16 @@ const ProductDetailsCard = ({ productDetails }) => {
                   >
                     Login
                   </Link>{" "}
-                  To Comment
+                  To Review
                 </h1>
               </div>
             )}
 
-            <div className="md:w-8/12">
-              {email !== currentEmail && user ? (
-                <form onSubmit={handleComment} className="flex flex-col">
+            {/* <div className="md:w-8/12">
+              { user ? (
+                <form 
+                onSubmit={handleComment} 
+                className="flex flex-col">
                   <textarea
                     name="comment"
                     className="border-2 border-gray-300 p-2 rounded-md mt-4 h-52"
@@ -179,7 +173,7 @@ const ProductDetailsCard = ({ productDetails }) => {
                   <p className="mt-12 text-2xl">No Comments Yet</p>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
         </main>
       </div>
