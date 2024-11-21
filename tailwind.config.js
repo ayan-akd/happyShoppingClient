@@ -4,8 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'grn': '#59815B',
-        "ylw" : '#FAC827',
+        grn: "#59815B",
+        ylw: "#FAC827",
+      },
+      screens: {
+        xs: "420px",
       },
     },
   },

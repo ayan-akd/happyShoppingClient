@@ -1,7 +1,3 @@
-// import { Helmet } from "react-helmet-async";
-// import CustomContainer from "../../../../Components/Shared/CustomContainer";
-// import Loading from "../../../../Components/Shared/Loading";
-// import ProfileCard from "../../../../Components/Shared/ProfileCard";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import ProfileCard from "../Component/ProfileCard";
