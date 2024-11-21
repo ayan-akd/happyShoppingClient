@@ -88,7 +88,7 @@ const AddProduct = () => {
               </label>
             </div>
           </div>
-          <div className="flex justify-between gap-x-5 mb-2">
+          <div className="grid grid-cols-2 md:flex md:justify-between gap-x-5 mb-2">
             <div className="form-control flex-grow">
               <label className="label">
                 <span className="label-text">Type of Product</span>

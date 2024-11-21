@@ -45,7 +45,6 @@ const AuthProvider = ({ children }) => {
 
   const { data: products, isLoading } = Loader("/products", "products");
 
-  !isLoading && console.log(products);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
