@@ -13,7 +13,7 @@ import ConfirmToast from "./Shared/ConfirmToast";
 import axiosPublic from "../Hooks/axiosPublic";
 
 const ProductDetailsCard = ({ productDetails }) => {
-  const { _id, name, photo, description, price, brand, rating, department } =
+  const { _id, name, photo, description, price, brand, rating, department, availability } =
     productDetails;
   const { user, userData, refetch } = useContext(AuthContext);
   const productId = _id;
@@ -122,6 +122,7 @@ const ProductDetailsCard = ({ productDetails }) => {
                 {description}
               </p>
               <p>Price : ${price}</p>
+              <p className="mb-2">Availability : {availability>0 ? "In Stock" : "Out Of Stock"}</p>
               <Rating
                 style={{ maxWidth: 130 }}
                 value={rating}

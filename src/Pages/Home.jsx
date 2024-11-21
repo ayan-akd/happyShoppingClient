@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Banner from "../Component/Banner";
 import Items from "../Component/Items";
-import LatestBlogs from "../Component/LatestBlogs";
+// import LatestBlogs from "../Component/LatestBlogs";
 import NewsLetter from "../Component/NewsLetter";
 import Tips from "../Component/Tips";
 import { motion, useAnimation } from "framer-motion";
