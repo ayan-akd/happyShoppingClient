@@ -5,8 +5,8 @@ import useAxios from "../Hooks/useAxios";
 import { PhotoView } from "react-photo-view";
 
 /* eslint-disable react/prop-types */
-const WishListCard = ({ Wishlist,refetch }) => {
-  const { _id, name, category, shortDis, photo ,blogId} = Wishlist;
+const WishListCard = ({ Wishlist, refetch }) => {
+  const { _id, name, category, shortDis, photo, blogId } = Wishlist;
   let cat = category;
   if (category === "destinations") {
     cat = "Destinations";
@@ -20,19 +20,19 @@ const WishListCard = ({ Wishlist,refetch }) => {
     cat = "Culture & Insights";
   }
   const axiosSecure = useAxios();
-  const handleDelete = id => {
+  const handleDelete = (id) => {
     axiosSecure.delete(`/wishlists/${id}`).then((res) => {
-        if (res.data.deletedCount > 0) {
-            toast("Deleted From Your Bookmarks", {
-            icon: "✅",
-            style: {
-                borderRadius: "10px",
-                background: "#333",
-                color: "#fff",
-            },
-            });
-            refetch();
-        }
+      if (res.data.deletedCount > 0) {
+        toast("Deleted From Your Bookmarks", {
+          icon: "✅",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+        refetch();
+      }
     });
   };
   return (
@@ -40,32 +40,32 @@ const WishListCard = ({ Wishlist,refetch }) => {
       <div className="card card-compact bg-base-100 md:h-[500px]">
         <figure>
           <PhotoView src={photo}>
-          <img className="md:h-[400px]" src={photo} alt="Shoes" />
+            <img className="md:h-[400px]" src={photo} alt="Shoes" />
           </PhotoView>
         </figure>
         <div className="card-body">
-         <Link to={`/blogs/${blogId}`}>
-         <div title={name} className="card-title">
-            {name.length > 62 ? <p>{name.slice(0, 55)}. . . . </p> : name}
-          </div>
-          <p className="text-grn font-semibold">{cat}</p>
-          <div title={shortDis}>
-            {shortDis.length > 100 ? (
-              <p>{shortDis.slice(0, 75)}. . . . . .</p>
-            ) : (
-              shortDis
-            )}
-          </div>
-         </Link>
+          <Link to={`/products/${blogId}`}>
+            <div title={name} className="card-title">
+              {name.length > 62 ? <p>{name.slice(0, 55)}. . . . </p> : name}
+            </div>
+            <p className="text-ylw font-semibold">{cat}</p>
+            <div title={shortDis}>
+              {shortDis.length > 100 ? (
+                <p>{shortDis.slice(0, 75)}. . . . . .</p>
+              ) : (
+                shortDis
+              )}
+            </div>
+          </Link>
           <div className="card-actions mt-2">
-            <Link to={`/blogs/${blogId}`}>
+            <Link to={`/products/${blogId}`}>
               <motion.button
                 whileHover={{
                   scale: 1.2,
                   transition: { duration: 0.1 },
                 }}
                 whileTap={{ scale: 0.9 }}
-                className="btn hover:bg-grn bg-grn text-white btn-sm md:btn-md"
+                className="btn hover:bg-ylw bg-ylw text-white btn-sm md:btn-md"
               >
                 Details
               </motion.button>
@@ -77,7 +77,7 @@ const WishListCard = ({ Wishlist,refetch }) => {
                 transition: { duration: 0.1 },
               }}
               whileTap={{ scale: 0.9 }}
-              className="btn hover:bg-grn bg-grn text-white btn-sm md:btn-md"
+              className="btn hover:bg-ylw bg-ylw text-white btn-sm md:btn-md"
             >
               Delete
             </motion.button>

@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         'grn': '#59815B',
+        "ylw" : '#FAC827',
       },
     },
   },

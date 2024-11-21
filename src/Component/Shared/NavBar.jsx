@@ -46,7 +46,7 @@ const Navbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "font-extrabold bg-grn text-white mr-1"
+              ? "font-extrabold bg-ylw text-white mr-1"
               : "mr-1"
           }
           to={"/"}
@@ -61,7 +61,7 @@ const Navbar = () => {
               isPending
                 ? "pending"
                 : isActive
-                ? "font-extrabold bg-grn text-white mr-1"
+                ? "font-extrabold bg-ylw text-white mr-1"
                 : "mr-1"
             }
             to={"/add"}
@@ -76,10 +76,10 @@ const Navbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "font-extrabold bg-grn text-white mr-1"
+              ? "font-extrabold bg-ylw text-white mr-1"
               : "mr-1"
           }
-          to={"/blogs"}
+          to={"/products"}
         >
           All Products
         </NavLink>
@@ -90,21 +90,7 @@ const Navbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "font-extrabold bg-grn text-white mr-1"
-              : "mr-1"
-          }
-          to={"/featured"}
-        >
-          Featured Blogs
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "pending"
-              : isActive
-              ? "font-extrabold bg-grn text-white mr-1"
+              ? "font-extrabold bg-ylw text-white mr-1"
               : "mr-1"
           }
           to={"/wishlist"}
@@ -146,12 +132,12 @@ const Navbar = () => {
             <div className="flex items-center ">
               <img
                 className="md:w-3/12 w-6/12 mr-1 md:mr-3"
-                src="/logo2.png"
+                src="/logo.ico"
                 alt=""
               />
-              <span className="text-lg md:text-2xl">Wander</span>{" "}
-              <span className="text-grn text-lg md:text-2xl font-semibold">
-                land
+              <span className="text-lg md:text-2xl">Happy</span>{" "}
+              <span className="text-ylw text-lg md:text-2xl font-semibold">
+                Shopping
               </span>
             </div>
           </Link>
@@ -201,7 +187,7 @@ const Navbar = () => {
                     scale: 1.2,
                     transition: { duration: 0.1 },
                   }}
-                  className="btn bg-grn text-white btn-xs md:btn-md hover:bg-grn border-none"
+                  className="btn bg-ylw text-white btn-xs md:btn-md hover:bg-ylw border-none"
                 >
                   Login
                 </motion.button>
@@ -213,7 +199,7 @@ const Navbar = () => {
                     scale: 1.2,
                     transition: { duration: 0.1 },
                   }}
-                  className="btn bg-grn text-white btn-xs md:btn-md hover:bg-grn border-none"
+                  className="btn bg-ylw text-white btn-xs md:btn-md hover:bg-ylw border-none"
                 >
                   Register
                 </motion.button>

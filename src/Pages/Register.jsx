@@ -117,7 +117,7 @@ const Register = () => {
           <div className="hero-content flex-col gap-10">
             <div className="text-center">
               <h1 className="text-5xl font-bold">
-                Be A <span className="font-semibold text-grn">Member</span>
+                Be A <span className="font-semibold text-ylw">Member</span>
               </h1>
             </div>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -226,7 +226,7 @@ const Register = () => {
                     <p className="label-text-alt mt-3 text-lg">
                       Already have an account?{" "}
                       <Link to={"/login"}>
-                        <span className="font-semibold text-grn">Sign in</span>
+                        <span className="font-semibold text-ylw">Sign in</span>
                       </Link>
                     </p>
                   </label>
@@ -238,7 +238,7 @@ const Register = () => {
                       transition: { duration: 0.1 },
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className="btn bg-grn text-white hover:bg-grn"
+                    className="btn bg-ylw text-white hover:bg-ylw"
                   >
                     Register
                   </motion.button>

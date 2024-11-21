@@ -13,20 +13,20 @@ const Tips = () => {
       <div className="max-w-screen-xl mx-auto mb-12">
         <div className="px-2">
           <h1 className="text-3xl md:text-5xl text-center">
-            TRAVEL TIPS <span className="text-grn">AND ADVICE</span>
+            TRAVEL TIPS <span className="text-ylw">AND ADVICE</span>
           </h1>
         </div>
         <div className="flex flex-col justify-center md:flex-row gap-10 py-20 p-4 md:px-5 lg:px-10">
           <div className="md:w-1/2">
             <PhotoView src="/blog.jpg">
-            <motion.img
-              whileHover={{
-                rotate: -5,
-                transition: { duration: 0.5 },
-              }}
-              src="/blog.jpg"
-              alt=""
-            />
+              <motion.img
+                whileHover={{
+                  rotate: -5,
+                  transition: { duration: 0.5 },
+                }}
+                src="/blog.jpg"
+                alt=""
+              />
             </PhotoView>
           </div>
           <div className="md:w-1/2 flex flex-col justify-center">
@@ -60,7 +60,7 @@ const Tips = () => {
                 transition: { duration: 0.1 },
               }}
               whileTap={{ scale: 0.9 }}
-              className="btn bg-grn text-white w-fit mt-5 hover:bg-grn"
+              className="btn bg-ylw text-white w-fit mt-5 hover:bg-ylw"
             >
               Read More
             </motion.button>
@@ -68,16 +68,16 @@ const Tips = () => {
         </div>
         <div className="flex flex-col justify-center md:flex-row-reverse gap-10 py-20 p-4 md:px-5 lg:px-10">
           <div className="md:w-1/2">
-           <PhotoView src="/blog1.jpg">
-           <motion.img
-              whileHover={{
-                rotate: 5,
-                transition: { duration: 0.5 },
-              }}
-              src="/blog1.jpg"
-              alt=""
-            />
-           </PhotoView>
+            <PhotoView src="/blog1.jpg">
+              <motion.img
+                whileHover={{
+                  rotate: 5,
+                  transition: { duration: 0.5 },
+                }}
+                src="/blog1.jpg"
+                alt=""
+              />
+            </PhotoView>
           </div>
           <div className="md:w-1/2 flex flex-col justify-center">
             <div className="flex gap-6 mb-5">
@@ -109,7 +109,7 @@ const Tips = () => {
                 transition: { duration: 0.1 },
               }}
               whileTap={{ scale: 0.9 }}
-              className="btn bg-grn text-white w-fit mt-5 hover:bg-grn"
+              className="btn bg-ylw text-white w-fit mt-5 hover:bg-ylw"
             >
               Read More
             </motion.button>

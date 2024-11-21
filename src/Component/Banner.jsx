@@ -26,8 +26,8 @@ const Banner = () => {
                 transition: { duration: 0.1 },
               }}
               whileTap={{ scale: 0.9 }}
-              href="/blogs"
-              className="btn bg-grn hover:bg-grn text-white border-none"
+              href="/products"
+              className="btn bg-ylw hover:bg-ylw text-white border-none"
             >
               Start Exploring
             </motion.a>

@@ -40,7 +40,7 @@ const AllProducts = () => {
       ) : (
         <div className="max-w-screen-xl mx-auto">
           <h1 className="text-3xl md:text-5xl text-center my-12">
-            Check Out Our <span className="text-grn">products</span>
+            Check Out Our <span className="text-ylw">products</span>
           </h1>
           <div className="join flex mt-12 justify-center">
             <input
@@ -49,7 +49,7 @@ const AllProducts = () => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            <button className="btn join-item btn-square w-20 bg-grn text-white">
+            <button className="btn join-item btn-square w-20 bg-ylw text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -76,7 +76,6 @@ const AllProducts = () => {
                   onChange={(e) => setSelectedDepartment(e.target.value)}
                 >
                   <option value="all">All</option>
-                  {}
                   <option value="electronics">Electronics</option>
                   <option value="furniture">Furniture</option>
                   <option value="appliances">Appliances</option>

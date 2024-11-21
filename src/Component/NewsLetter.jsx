@@ -23,12 +23,13 @@ const NewsLetter2 = () => {
       <div className="flex flex-col md:flex-row justify-center max-w-screen-xl mx-auto gap-10 p-4 md:p-10 lg:p-12">
         <div className="md:w-1/2">
           <PhotoView src="/newsletter.png">
-          <img src="/newsletter.png" alt="" />
+            <img src="/newsletter.png" alt="" />
           </PhotoView>
         </div>
         <div className="md:w-1/2">
           <h1 className="text-2xl font-bold mb-5 lg:mt-5">
-            FINDING THE PERFECT TRAILS TO HIKE IS EASY WITH <span className="text-grn">NEWSLETTER</span>
+            FINDING THE PERFECT TRAILS TO HIKE IS EASY WITH{" "}
+            <span className="text-ylw">NEWSLETTER</span>
           </h1>
           <p>
             Join our newsletter to receive the latest travel tips, inspiring
@@ -37,7 +38,7 @@ const NewsLetter2 = () => {
           </p>
           <form onSubmit={handleSubscribe} className="flex items-center mt-12">
             <input
-            required
+              required
               type="email"
               placeholder="Enter your email"
               className="input input-bordered input-success w-full max-w-xs "
@@ -49,7 +50,7 @@ const NewsLetter2 = () => {
               }}
               whileTap={{ scale: 0.9 }}
               type="submit"
-              className="btn bg-grn text-white hover:bg-grn"
+              className="btn bg-ylw text-white hover:bg-ylw"
             >
               Subscribe
             </motion.button>

@@ -20,11 +20,11 @@ const NotFound = () => {
             </h2>
             <p className="text-white font-semibold my-3">
               Page does not exist or some other error occurred. Go to our{" "}
-              <span className="text-grn">
+              <span className="text-ylw">
                 <Link to={"/"}>Home page</Link>
               </span>
             </p>
-            <a href="/" className="btn bg-grn text-white border-none">
+            <a href="/" className="btn bg-ylw text-white border-none">
               Back to Home
             </a>
           </div>

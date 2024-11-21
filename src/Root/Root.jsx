@@ -12,12 +12,15 @@ const Root = () => {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
-    top: '5rem',
+    top: "5rem",
   });
   return (
     <div>
       <Navbar></Navbar>
-      <motion.div className="fixed top-18 left-0 right-0 h-3 bg-grn origin-[0] z-50" style={{ scaleX }} />
+      <motion.div
+        className="fixed top-18 left-0 right-0 h-3 bg-ylw origin-[0] z-50"
+        style={{ scaleX }}
+      />
       <Outlet></Outlet>
       <Footer></Footer>
       <Toaster></Toaster>

@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
   // const { data: blogs, isLoading } = useQuery({
   //   queryKey: ["blogs"],
   //   queryFn: async () => {
-  //     const response = await axios.get(`${baseURL}/blogs`, {
+  //     const response = await axios.get(`${baseURL}/products`, {
   //       withCredentials: true,
   //     });
   //     return response.data;

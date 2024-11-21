@@ -26,7 +26,7 @@ const LatestBlogs = () => {
       >
         <div className="max-w-screen-xl mx-auto">
           <h1 className="text-3xl md:text-5xl text-center my-12">
-            Latest <span className="text-grn">Blogs</span>
+            Latest <span className="text-ylw">Blogs</span>
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
             {latestBlogs.map((blog) => (
@@ -41,7 +41,7 @@ const LatestBlogs = () => {
                   transition: { duration: 0.1 },
                 }}
                 whileTap={{ scale: 0.9 }}
-                className="btn bg-grn text-white hover:bg-grn"
+                className="btn bg-ylw text-white hover:bg-ylw"
               >
                 View More
               </motion.button>

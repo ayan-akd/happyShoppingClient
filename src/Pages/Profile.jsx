@@ -19,7 +19,7 @@ const Profile = () => {
           <ProfileCard userData={userData}></ProfileCard>
           <div>
             <h1 className="text-3xl md:text-5xl text-center pt-16 my-12">
-              Purchase <span className="text-grn">History</span>
+              Purchase <span className="text-ylw">History</span>
             </h1>
             <h1 className="text-center font-bold text-3xl">
               No History Found!!!

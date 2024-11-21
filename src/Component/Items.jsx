@@ -16,14 +16,19 @@ const Items = () => {
     >
       <div className="max-w-screen-xl mx-auto">
         <h1 className="text-3xl md:text-5xl text-center mb-8">
-          TRAVEL ESSENTIAL <span className="text-grn">ITEMS</span>
+          TRAVEL ESSENTIAL <span className="text-ylw">ITEMS</span>
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 px-2">
           <div className="flex flex-col items-center">
-            <motion.img whileHover={{
+            <motion.img
+              whileHover={{
                 scale: 1.2,
                 transition: { duration: 0.1 },
-              }} className="w-96" src="/item1.jpg" alt="" />
+              }}
+              className="w-96"
+              src="/item1.jpg"
+              alt=""
+            />
             <div className="text-center space-y-5">
               <p className="italic mt-4">$250.00</p>
               <h3 className="font-bold text-xl">Shoes</h3>
@@ -37,10 +42,15 @@ const Items = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <motion.img whileHover={{
+            <motion.img
+              whileHover={{
                 scale: 1.2,
                 transition: { duration: 0.1 },
-              }} className="w-96" src="/item2.jpg" alt="" />
+              }}
+              className="w-96"
+              src="/item2.jpg"
+              alt=""
+            />
             <div className="text-center space-y-5">
               <p className="italic mt-4">$200.00</p>
               <h3 className="font-bold text-xl">CAMERA TRIPOD</h3>
@@ -54,10 +64,15 @@ const Items = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <motion.img whileHover={{
+            <motion.img
+              whileHover={{
                 scale: 1.2,
                 transition: { duration: 0.1 },
-              }} className="w-96" src="/item3.jpg" alt="" />
+              }}
+              className="w-96"
+              src="/item3.jpg"
+              alt=""
+            />
             <div className="text-center space-y-5">
               <p className="italic mt-4">$150.00</p>
               <h3 className="font-bold text-xl">RAINCOAT</h3>
@@ -71,10 +86,15 @@ const Items = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <motion.img whileHover={{
+            <motion.img
+              whileHover={{
                 scale: 1.2,
                 transition: { duration: 0.1 },
-              }} className="w-96" src="/item4.jpg" alt="" />
+              }}
+              className="w-96"
+              src="/item4.jpg"
+              alt=""
+            />
             <div className="text-center space-y-5">
               <p className="italic mt-4">$1250.00</p>
               <h3 className="font-bold text-xl">DSLR CAMERA</h3>
@@ -88,10 +108,15 @@ const Items = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <motion.img whileHover={{
+            <motion.img
+              whileHover={{
                 scale: 1.2,
                 transition: { duration: 0.1 },
-              }} className="w-96" src="/item5.jpg" alt="" />
+              }}
+              className="w-96"
+              src="/item5.jpg"
+              alt=""
+            />
             <div className="text-center space-y-5">
               <p className="italic mt-4">$170.00</p>
               <h3 className="font-bold text-xl">WATTER BOTTLE</h3>

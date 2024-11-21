@@ -9,9 +9,9 @@ import { Link, useLocation } from "react-router-dom";
 import { PhotoView } from "react-photo-view";
 import Loading from "./Loading";
 
-const BlogDetailsCard = ({ blogDetails }) => {
+const ProductDetailsCard = ({ productDetails }) => {
   const { _id, name, category, shortDis, longDis, photo, email, userName } =
-    blogDetails;
+    productDetails;
   const { user } = useContext(AuthContext);
   const blogId = _id;
   const currentEmail = user?.email;
@@ -51,7 +51,7 @@ const BlogDetailsCard = ({ blogDetails }) => {
       blogId,
       currentUserName,
       currentUserPhoto,
-      email:currentEmail,
+      email: currentEmail,
     };
 
     axiosSecure.post("/comments", newComment).then((res) => {
@@ -82,7 +82,7 @@ const BlogDetailsCard = ({ blogDetails }) => {
               <p>by {userName}</p>
               <a
                 href="#"
-                className="py-2 text-grn inline-flex items-center justify-center mb-2"
+                className="py-2 text-ylw inline-flex items-center justify-center mb-2"
               >
                 {cat}
               </a>
@@ -104,7 +104,7 @@ const BlogDetailsCard = ({ blogDetails }) => {
               {email === currentEmail ? (
                 <div className="flex justify-end">
                   <Link to={`/update/${blogId}`}>
-                    <button className="btn bg-grn text-white ">
+                    <button className="btn bg-ylw text-white ">
                       Edit Blog
                     </button>
                   </Link>
@@ -125,11 +125,21 @@ const BlogDetailsCard = ({ blogDetails }) => {
                   </h1>
                 </div>
               )
-            ) : (<div>
-              <h1 className="text-xl font-semibold mb-10">
-                You Need to <Link state={location.pathname} className="font-semibold text-grn" to={"/login"}>Login</Link> To Comment
-              </h1>
-            </div>)}
+            ) : (
+              <div>
+                <h1 className="text-xl font-semibold mb-10">
+                  You Need to{" "}
+                  <Link
+                    state={location.pathname}
+                    className="font-semibold text-ylw"
+                    to={"/login"}
+                  >
+                    Login
+                  </Link>{" "}
+                  To Comment
+                </h1>
+              </div>
+            )}
 
             <div className="md:w-8/12">
               {email !== currentEmail && user ? (
@@ -141,7 +151,7 @@ const BlogDetailsCard = ({ blogDetails }) => {
                   ></textarea>
                   <button
                     type="submit"
-                    className="bg-grn w-fit text-white rounded-md p-2 mt-4"
+                    className="bg-ylw w-fit text-white rounded-md p-2 mt-4"
                   >
                     Post Comment
                   </button>
@@ -177,4 +187,4 @@ const BlogDetailsCard = ({ blogDetails }) => {
   );
 };
 
-export default BlogDetailsCard;
+export default ProductDetailsCard;

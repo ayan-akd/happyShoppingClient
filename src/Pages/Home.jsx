@@ -4,7 +4,7 @@ import Items from "../Component/Items";
 import LatestBlogs from "../Component/LatestBlogs";
 import NewsLetter from "../Component/NewsLetter";
 import Tips from "../Component/Tips";
-import { motion, useAnimation, } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { useInView } from "react-intersection-observer";
 import SliderContainer from "../Component/SliderContainer";
@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <div className=" mx-auto">
-      {/* <motion.div className="fixed top-18 left-0 right-0 h-3 bg-grn origin-[0] z-50" style={{ scaleX }} /> */}
+      {/* <motion.div className="fixed top-18 left-0 right-0 h-3 bg-ylw origin-[0] z-50" style={{ scaleX }} /> */}
       <Banner />
       <LatestBlogs />
       <div ref={ref}>
@@ -62,7 +62,7 @@ const Home = () => {
       </div>
       {inView ? (
         <motion.button
-          className="fixed bottom-6 right-6 text-4xl md:text-5xl text-grn px-4 py-2 rounded-full opacity-0 transition-opacity duration-300 z-10"
+          className="fixed bottom-6 right-6 text-4xl md:text-5xl text-ylw px-4 py-2 rounded-full opacity-0 transition-opacity duration-300 z-10"
           onClick={scrollToTop}
           title="Scroll To Top"
           initial={{ opacity: inView ? 1 : 0 }}

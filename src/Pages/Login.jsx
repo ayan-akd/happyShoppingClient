@@ -72,9 +72,7 @@ const Login = () => {
                     <p className="label-text-alt mt-3 text-lg">
                       Do not have an account?{" "}
                       <Link to={"/register"}>
-                        <span  className="font-semibold text-grn">
-                          Sign up
-                        </span>
+                        <span className="font-semibold text-ylw">Sign up</span>
                       </Link>
                     </p>
                   </label>
@@ -86,7 +84,7 @@ const Login = () => {
                       transition: { duration: 0.1 },
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className="btn bg-grn text-white hover:bg-grn"
+                    className="btn bg-ylw text-white hover:bg-ylw"
                   >
                     Login
                   </motion.button>
@@ -101,7 +99,7 @@ const Login = () => {
                   }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handleGoogleLogin}
-                  className="btn w-full bg-grn text-white hover:bg-grn"
+                  className="btn w-full bg-ylw text-white hover:bg-ylw"
                 >
                   <BiLogoGoogle></BiLogoGoogle>Login with Google
                 </motion.button>

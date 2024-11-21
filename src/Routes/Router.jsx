@@ -4,14 +4,13 @@ import Home from "../Pages/Home";
 import NotFound from "../Pages/NotFound";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
-import AddBlog from "../Pages/AddBlog";
+import AddProduct from "../Pages/AddProduct";
 import PrivateRoute from "./PrivateRoute";
 import AllProducts from "../Pages/AllProducts";
 import Wishlist from "../Pages/Wishlist";
 import Update from "../Pages/Update";
-import BlogDetails from "../Pages/BlogDetails";
-import Featured from "../Pages/Featured";
 import Profile from "../Pages/Profile";
+import ProductDetails from "../Pages/ProductDetails";
 
 const Router = createBrowserRouter([
   {
@@ -35,7 +34,7 @@ const Router = createBrowserRouter([
         path: "/add",
         element: (
           <PrivateRoute>
-            <AddBlog></AddBlog>
+            <AddProduct></AddProduct>
           </PrivateRoute>
         ),
       },
@@ -48,7 +47,7 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/blogs",
+        path: "/products",
         element: <AllProducts></AllProducts>,
       },
       {
@@ -60,12 +59,8 @@ const Router = createBrowserRouter([
         ),
       },
       {
-        path: "/featured",
-        element: <Featured></Featured>,
-      },
-      {
-        path: "/blogs/:id",
-        element: <BlogDetails></BlogDetails>,
+        path: "/products/:id",
+        element: <ProductDetails></ProductDetails>
       },
       {
         path: "/profile",
