@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import Banner from "../Component/Banner";
 import Items from "../Component/Items";
-// import LatestBlogs from "../Component/LatestBlogs";
 import NewsLetter from "../Component/NewsLetter";
 import Tips from "../Component/Tips";
 import { motion, useAnimation } from "framer-motion";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { useInView } from "react-intersection-observer";
-import SliderContainer from "../Component/SliderContainer";
+import SliderX from "../Component/SliderX";
 
 const Home = () => {
   const { ref, inView } = useInView({ threshold: 0.1 });
@@ -52,13 +50,12 @@ const Home = () => {
   return (
     <div className=" mx-auto">
       {/* <motion.div className="fixed top-18 left-0 right-0 h-3 bg-ylw origin-[0] z-50" style={{ scaleX }} /> */}
-      <Banner />
+      <SliderX></SliderX>
       {/* <LatestBlogs /> */}
       <div ref={ref}>
         <Tips />
         <NewsLetter />
         <Items />
-        <SliderContainer></SliderContainer>
       </div>
       {inView ? (
         <motion.button

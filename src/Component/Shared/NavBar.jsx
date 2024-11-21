@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 // import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { RotateSpinner } from "react-spinners-kit";
 
 const Navbar = () => {
-  const { user, signOutUser, userData } = useContext(AuthContext);
+  const { user, signOutUser, userData, roleLoading } = useContext(AuthContext);
   const logOut = () => {
     signOutUser()
       .then(() => {
@@ -30,13 +31,9 @@ const Navbar = () => {
         });
       });
   };
-  //   const [theme, setTheme] = useState("light");
-  //   const toggleTheme = () => {
-  //     setTheme(theme === "dark" ? "light" : "dark");
-  //   };
-  //   useEffect(() => {
-  //     document.querySelector("html").setAttribute("data-theme", theme);
-  //   }, [theme]);
+
+  const fullName =
+    `${userData?.name?.firstName} ${userData?.name?.middleName} ${userData?.name?.lastName}`.trim();
 
   const navLinks = (
     <>
@@ -149,7 +146,13 @@ const Navbar = () => {
           {user ? (
             <div className="dropdown dropdown-bottom dropdown-end flex items-center">
               <div className="md:visible invisible">
-                <p className="text-lg md:mr-5">{user?.displayName}</p>
+                <p className="text-lg md:mr-5">
+                  {roleLoading ? (
+                    <RotateSpinner size={45} color="#59815B" loading={true} />
+                  ) : (
+                    fullName
+                  )}
+                </p>
               </div>
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
@@ -165,7 +168,13 @@ const Navbar = () => {
                 className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box"
               >
                 <li>
-                  <p className="text-xl md:hidden">{user?.displayName}</p>
+                  <p className="text-xl md:hidden">
+                    {roleLoading ? (
+                      <RotateSpinner size={45} color="#59815B" loading={true} />
+                    ) : (
+                      fullName
+                    )}
+                  </p>
                 </li>
                 <li>
                   <NavLink className="text-xl" to={"/profile"}>
