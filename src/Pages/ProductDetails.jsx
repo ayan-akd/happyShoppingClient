@@ -10,31 +10,31 @@ const ProductDetails = () => {
   const { id } = useParams();
   console.log(id);
 
-  // const { data: productDetails, isLoading } = Loader(
-  //   `/products/${id}`,
-  //   "productDetails"
-  // );
-  // console.log(productDetails);
+  const { data: productDetails, isLoading } = Loader(
+    `/products/${id}`,
+    "productDetails"
+  );
+  console.log(productDetails);
 
-  // return (
-  //   <div
-  //     style={{
-  //       backgroundImage: "url(/bg-tips.jpg)",
-  //     }}
-  //   >
-  //     <div className="max-w-screen-xl mx-auto">
-  //       {isLoading ? (
-  //         <Loading></Loading>
-  //       ) : (
-  //         <div>
-  //           <ProductDetailsCard
-  //             productDetails={productDetails}
-  //           ></ProductDetailsCard>
-  //         </div>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
+  return (
+    <div
+      style={{
+        backgroundImage: "url(/bg-tips.jpg)",
+      }}
+    >
+      <div className="max-w-screen-xl mx-auto">
+        {isLoading ? (
+          <Loading></Loading>
+        ) : (
+          <div>
+            <ProductDetailsCard
+              productDetails={productDetails}
+            ></ProductDetailsCard>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ProductDetails;
