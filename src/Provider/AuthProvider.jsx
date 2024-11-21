@@ -43,17 +43,9 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  // const { data: blogs, isLoading } = useQuery({
-  //   queryKey: ["blogs"],
-  //   queryFn: async () => {
-  //     const response = await axios.get(`${baseURL}/products`, {
-  //       withCredentials: true,
-  //     });
-  //     return response.data;
-  //   },
-  // });
-
   const { data: products, isLoading } = Loader("/products", "products");
+
+  !isLoading && console.log(products);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {

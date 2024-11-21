@@ -13,7 +13,7 @@ const ProductDetailsCard = ({ productDetails }) => {
   const { _id, name, category, shortDis, longDis, photo, email, userName } =
     productDetails;
   const { user } = useContext(AuthContext);
-  const blogId = _id;
+  const productId = _id;
   const currentEmail = user?.email;
   const currentUserName = user?.displayName;
   const currentUserPhoto =
@@ -37,9 +37,9 @@ const ProductDetailsCard = ({ productDetails }) => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["comments", blogId],
+    queryKey: ["comments", productId],
     queryFn: async () => {
-      const response = await axiosSecure.get(`/comments/${blogId}`);
+      const response = await axiosSecure.get(`/comments/${productId}`);
       return response.data;
     },
   });
@@ -48,7 +48,7 @@ const ProductDetailsCard = ({ productDetails }) => {
     const comment = e.target.comment.value;
     const newComment = {
       comment,
-      blogId,
+      productId,
       currentUserName,
       currentUserPhoto,
       email: currentEmail,
@@ -103,7 +103,7 @@ const ProductDetailsCard = ({ productDetails }) => {
               </p>
               {email === currentEmail ? (
                 <div className="flex justify-end">
-                  <Link to={`/update/${blogId}`}>
+                  <Link to={`/update/${productId}`}>
                     <button className="btn bg-ylw text-white ">
                       Edit Blog
                     </button>
