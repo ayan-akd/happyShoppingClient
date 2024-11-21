@@ -5,22 +5,62 @@ import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import useAxios from "../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PhotoView } from "react-photo-view";
 import Loading from "./Loading";
 import { Rating, RoundedStar } from "@smastrom/react-rating";
+import ConfirmToast from "./Shared/ConfirmToast";
+import axiosPublic from "../Hooks/axiosPublic";
 
 const ProductDetailsCard = ({ productDetails }) => {
-  const { _id, name, photo, description, price, brand, rating, department } =
+  const { _id, name, photo, description, price, brand, rating, department, availability } =
     productDetails;
-  const { user, userData } = useContext(AuthContext);
+  const { user, userData, refetch } = useContext(AuthContext);
   const productId = _id;
+  const navigate = useNavigate();
   const currentUserPhoto =
     user?.photoURL || "https://images2.imgbox.com/2f/46/t0HrsZQn_o.png";
   const myStyles = {
     itemShapes: RoundedStar,
     activeFillColor: "#FAC827",
     inactiveFillColor: "#dcfce7",
+  };
+  const handleDelete = () => {
+    axiosPublic
+      .delete(`/products/${_id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          toast("Product Deleted", {
+            icon: "✅",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+          refetch();
+          navigate(-1);
+        }
+      })
+      .catch((error) => {
+        toast(error.message, {
+          icon: "❌",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      });
+  };
+  const confirmDelete = () => {
+    const confirmToastId = ConfirmToast({
+      message: "Are you sure you want to delete this Product?",
+      confirmLabel: "Delete",
+      cancelLabel: "Cancel",
+      onConfirm: () => handleDelete(),
+      onCancel: () => toast.dismiss(confirmToastId),
+    });
   };
 
   // const axiosSecure = useAxios();
@@ -71,17 +111,18 @@ const ProductDetailsCard = ({ productDetails }) => {
               <h2 className="text-2xl md:text-4xl font-semibold text-gray-800 leading-tight">
                 {name}
               </h2>
-              <p className="text-ylw mt-2">By {brand.toUpperCase()}</p>
+              <p className="text-ylw mt-2">By {brand?.toUpperCase()}</p>
               <a
                 href="#"
                 className="py-2  inline-flex items-center justify-center mb-2"
               >
-                {department.toUpperCase()}
+                {department?.toUpperCase()}
               </a>
               <p className="pb-6 text-gray-700 text-lg leading-relaxed">
                 {description}
               </p>
               <p>Price : ${price}</p>
+              <p className="mb-2">Availability : {availability>0 ? "In Stock" : "Out Of Stock"}</p>
               <Rating
                 style={{ maxWidth: 130 }}
                 value={rating}
@@ -102,7 +143,12 @@ const ProductDetailsCard = ({ productDetails }) => {
                 </div>
                 <div>
                   {userData?.role === "admin" ? (
-                    <button className="btn bg-ylw text-white ">Delete</button>
+                    <button
+                      onClick={confirmDelete}
+                      className="btn bg-ylw text-white "
+                    >
+                      Delete
+                    </button>
                   ) : (
                     ""
                   )}

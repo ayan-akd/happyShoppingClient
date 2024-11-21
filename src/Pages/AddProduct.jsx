@@ -1,7 +1,10 @@
 import toast from "react-hot-toast";
 import axiosPublic from "../Hooks/axiosPublic";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const AddProduct = () => {
+  const {refetch} = useContext(AuthContext);
   const handleAddProduct = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -29,6 +32,7 @@ const AddProduct = () => {
 
     axiosPublic.post("/products", newProduct).then((res) => {
       if (res.status === 201) {
+        refetch();
         toast("Product Added", {
           icon: "✅",
           style: {

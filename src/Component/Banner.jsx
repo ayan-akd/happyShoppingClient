@@ -13,12 +13,12 @@ const Banner = () => {
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold text-white">
-              Explore the World
+              Elevate Your Lifestyle
             </h1>
             <p className="mb-5 text-white">
-              Embark on a journey to discover the most breathtaking
-              destinations. Let your wanderlust guide you to new horizons,
-              cultures, and experiences.
+              Discover a curated collection of top-notch Electronics, stylish
+              Furniture, and innovative Appliances. Redefine comfort,
+              functionality, and elegance in every corner of your life.
             </p>
             <motion.a
               whileHover={{
@@ -29,7 +29,7 @@ const Banner = () => {
               href="/products"
               className="btn bg-ylw hover:bg-ylw text-white border-none"
             >
-              Start Exploring
+              Start Shopping
             </motion.a>
           </div>
         </div>

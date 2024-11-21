@@ -1,47 +1,48 @@
 import toast from "react-hot-toast";
-import useAxios from "../Hooks/useAxios";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import Loading from "../Component/Loading";
+import Loader from "../Hooks/Loader";
+import axiosPublic from "../Hooks/axiosPublic";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-import Loading from "../Component/Loading";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 const Update = () => {
-  const { user } = useContext(AuthContext);
-  const userPhoto =
-    user?.photoURL || "https://images2.imgbox.com/2f/46/t0HrsZQn_o.png";
-  const axiosSecure = useAxios();
   const { id } = useParams();
-  const { data: blogDetails, isLoading } = useQuery({
-    queryKey: ["blogDetails"],
-    queryFn: async () => {
-      const response = await axiosSecure.get(`/update/${id}`);
-      return response.data;
-    },
-  });
+  const {refetch} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { data: productDetails, isLoading } = Loader(
+    `/products/${id}`,
+    `product${id}`
+  );
 
   const handleUpdate = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
-    const category = form.category.value;
-    const shortDis = form.shortDis.value;
-    const longDis = form.longDis.value;
     const photo = form.photo.value;
+    const description = form.description.value;
+    const price = form.price.value;
+    const availability = form.availability.value;
+    const brand = form.brand.value;
+    const type = form.type.value;
+    const department = form.department.value;
 
-    const updatedBlog = {
+    const updateProduct = {
       name,
-      category,
-      shortDis,
-      longDis,
       photo,
-      userPhoto,
+      description,
+      price,
+      availability,
+      brand,
+      type,
+      department,
     };
-    console.log(updatedBlog);
 
-    axiosSecure.put(`/update/${id}`, updatedBlog).then((res) => {
-      if (res.data.modifiedCount > 0) {
-        toast("Blog Updated", {
+    axiosPublic.put(`/products/${id}`, updateProduct).then((res) => {
+      if (res.status === 201) {
+        refetch();
+        toast("Product Updated", {
           icon: "✅",
           style: {
             borderRadius: "10px",
@@ -64,59 +65,108 @@ const Update = () => {
       ) : (
         <div className="max-w-screen-xl mx-auto p-4 my-10">
           <h1 className="text-center text-4xl italic font-semibold mb-12">
-            Update <span className="text-ylw">Blog</span>
+            Update <span className="text-ylw">Product</span>
           </h1>
+          <button
+            onClick={() => navigate(-1)}
+            className=" bg-ylw text-white btn mb-10"
+          >
+            <IoArrowBackSharp></IoArrowBackSharp>Go Back
+          </button>
           <form onSubmit={handleUpdate}>
             <div className="grid grid-cols-1 md:grid-cols-2 mb-8">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Blog Title</span>
+                  <span className="label-text">Product Name</span>
                 </label>
                 <label className="input-group">
                   <input
                     type="text"
                     name="name"
-                    defaultValue={blogDetails?.name}
-                    placeholder="Blog Title"
+                    placeholder="Product Name..."
                     className="input input-bordered w-full"
+                    defaultValue={productDetails?.name}
                     required
                   />
                 </label>
               </div>
               <div className="form-control md:ml-4">
                 <label className="label">
-                  <span className="label-text">Category</span>
+                  <span className="label-text">Department</span>
                 </label>
                 <label className="input-group">
                   <select
-                    name="category"
+                    name="department"
                     className="select select-bordered w-full"
-                    defaultValue={blogDetails?.category}
+                    defaultValue={productDetails?.department}
                     required
                   >
                     <option disabled value="">
-                      Select Category. . .
+                      Select Department. . .
                     </option>
-                    <option value="destinations">Destinations</option>
-                    <option value="tips">Tips & Advice</option>
-                    <option value="stories">Stories & Experiences</option>
-                    <option value="food">Food & Cuisine</option>
-                    <option value="culture">Culture & Insights</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="furniture">Furniture</option>
+                    <option value="appliances">Appliances</option>
                   </select>
                 </label>
               </div>
             </div>
-            <div className="md:flex mb-8">
-              <div className="form-control w-full">
+            <div className="grid grid-cols-2 md:flex md:justify-between gap-x-5 mb-2">
+              <div className="form-control flex-grow">
                 <label className="label">
-                  <span className="label-text">Short Description</span>
+                  <span className="label-text">Type of Product</span>
                 </label>
                 <label className="input-group">
                   <input
                     type="text"
-                    name="shortDis"
-                    defaultValue={blogDetails?.shortDis}
-                    placeholder="Short Description"
+                    name="type"
+                    placeholder="Type..."
+                    defaultValue={productDetails?.type}
+                    className="input input-bordered w-full"
+                    required
+                  />
+                </label>
+              </div>
+              <div className="form-control flex-grow">
+                <label className="label">
+                  <span className="label-text">Brand Name</span>
+                </label>
+                <label className="input-group">
+                  <input
+                    type="text"
+                    name="brand"
+                    placeholder="Brand Name..."
+                    defaultValue={productDetails?.brand}
+                    className="input input-bordered w-full"
+                    required
+                  />
+                </label>
+              </div>
+              <div className="form-control flex-grow">
+                <label className="label">
+                  <span className="label-text">Product Price</span>
+                </label>
+                <label className="input-group">
+                  <input
+                    type="number"
+                    name="price"
+                    placeholder="$Price..."
+                    defaultValue={productDetails?.price}
+                    className="input input-bordered w-full"
+                    required
+                  />
+                </label>
+              </div>
+              <div className="form-control flex-grow">
+                <label className="label">
+                  <span className="label-text">Product Stock Amount</span>
+                </label>
+                <label className="input-group">
+                  <input
+                    type="number"
+                    name="availability"
+                    placeholder="Stock Amount..."
+                    defaultValue={productDetails?.availability}
                     className="input input-bordered w-full"
                     required
                   />
@@ -126,15 +176,15 @@ const Update = () => {
             <div className="md:flex mb-8">
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Long Description</span>
+                  <span className="label-text">Description of Product</span>
                 </label>
                 <label className="input-group">
                   <div className="form-control w-full">
                     <textarea
                       type="text"
-                      name="longDis"
-                      defaultValue={blogDetails?.longDis}
-                      placeholder="Long Description"
+                      name="description"
+                      placeholder="Description of Product....."
+                      defaultValue={productDetails?.description}
                       className="textarea w-full h-52 textarea-bordered textarea-lg"
                       required
                     ></textarea>
@@ -151,8 +201,8 @@ const Update = () => {
                   <input
                     type="text"
                     name="photo"
-                    defaultValue={blogDetails?.photo}
-                    placeholder="Photo URL"
+                    placeholder="Photo URL...."
+                    defaultValue={productDetails?.photo}
                     className="input input-bordered w-full"
                     required
                   />
@@ -160,7 +210,7 @@ const Update = () => {
               </div>
             </div>
             <button className="w-full bg-ylw text-white btn">
-              Update Blog
+              Update Product
             </button>
           </form>
         </div>
