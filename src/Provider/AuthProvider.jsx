@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const { data: products, isLoading } = Loader("/products", "products");
+  const { data: products, isLoading, refetch } = Loader("/products", "products");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -74,6 +74,7 @@ const AuthProvider = ({ children }) => {
     roleLoading,
     userData,
     products,
+    refetch
   };
 
   return (

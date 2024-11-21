@@ -53,7 +53,7 @@ const Home = () => {
     <div className=" mx-auto">
       {/* <motion.div className="fixed top-18 left-0 right-0 h-3 bg-ylw origin-[0] z-50" style={{ scaleX }} /> */}
       <Banner />
-      <LatestBlogs />
+      {/* <LatestBlogs /> */}
       <div ref={ref}>
         <Tips />
         <NewsLetter />

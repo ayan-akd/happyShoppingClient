@@ -7,7 +7,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const { data: productDetails, isLoading } = Loader(
     `/products/${id}`,
-    "productDetails"
+    `product${id}`
   );
   return (
     <div
