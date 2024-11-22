@@ -4,8 +4,8 @@ import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 // import { AuthContext } from "../Provider/AuthProvider";
 
-// export const baseURL = "https://happy-shopping-server.vercel.app";
-export const baseURL = "http://localhost:5000";
+export const baseURL = "https://happy-shopping-server.vercel.app";
+// export const baseURL = "http://localhost:5000";
 
 const axiosSecure = axios.create({
   baseURL: baseURL,

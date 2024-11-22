@@ -106,6 +106,7 @@ const ProductDetailsCard = ({ productDetails }) => {
         });
       }
       reviewRefetch();
+      e.target.reset();
     });
   };
   const location = useLocation();

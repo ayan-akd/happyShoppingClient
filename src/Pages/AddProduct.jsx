@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const AddProduct = () => {
-  const {refetch} = useContext(AuthContext);
+  const { refetch } = useContext(AuthContext);
   const handleAddProduct = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -25,7 +25,7 @@ const AddProduct = () => {
       availability,
       brand,
       type,
-      rating: 4,
+      rating: 0,
       department,
     };
     // send data to the server
