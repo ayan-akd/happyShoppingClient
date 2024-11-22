@@ -1,22 +1,33 @@
 /* eslint-disable react/prop-types */
 import { useContext } from "react";
-import CommentCard from "./CommentCard";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
-import useAxios from "../Hooks/useAxios";
-import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PhotoView } from "react-photo-view";
 import Loading from "./Loading";
 import { Rating, RoundedStar } from "@smastrom/react-rating";
 import ConfirmToast from "./Shared/ConfirmToast";
 import axiosPublic from "../Hooks/axiosPublic";
+import Loader from "../Hooks/Loader";
+import ReviewCard from "./ReviewCard";
 
 const ProductDetailsCard = ({ productDetails }) => {
-  const { _id, name, photo, description, price, brand, rating, department, availability } =
-    productDetails;
+  const {
+    _id,
+    name,
+    photo,
+    description,
+    price,
+    brand,
+    rating,
+    department,
+    availability,
+  } = productDetails;
   const { user, userData, refetch } = useContext(AuthContext);
   const productId = _id;
+  const currentTime = new Date().getTime();
+  const fullName =
+    `${userData?.name?.firstName} ${userData?.name?.middleName} ${userData?.name?.lastName}`.trim();
   const navigate = useNavigate();
   const currentUserPhoto =
     user?.photoURL || "https://images2.imgbox.com/2f/46/t0HrsZQn_o.png";
@@ -63,44 +74,41 @@ const ProductDetailsCard = ({ productDetails }) => {
     });
   };
 
-  // const axiosSecure = useAxios();
-  // const {
-  //   data: commentsData,
-  //   isLoading,
-  //   refetch,
-  // } = useQuery({
-  //   queryKey: ["comments", productId],
-  //   queryFn: async () => {
-  //     const response = await axiosSecure.get(`/comments/${productId}`);
-  //     return response.data;
-  //   },
-  // });
-  // const handleComment = (e) => {
-  //   e.preventDefault();
-  //   const comment = e.target.comment.value;
-  //   const newComment = {
-  //     comment,
-  //     productId,
-  //     currentUserName,
-  //     currentUserPhoto,
-  //     email: currentEmail,
-  //   };
+  const {
+    data: reviews,
+    isLoading,
+    refetch: reviewRefetch,
+  } = Loader(`/reviews/${productId}`, `reviews${productId}`);
 
-  //   axiosSecure.post("/comments", newComment).then((res) => {
-  //     const insertedId = parseInt(res.data.insertedId);
-  //     if (insertedId > 0) {
-  //       toast("Comment Added", {
-  //         icon: "✅",
-  //         style: {
-  //           borderRadius: "10px",
-  //           background: "#333",
-  //           color: "#fff",
-  //         },
-  //       });
-  //     }
-  //     refetch();
-  //   });
-  // };
+  const handleReview = (e) => {
+    e.preventDefault();
+    const review = e.target.review.value;
+    const rating = e.target.rating.value;
+    const newReview = {
+      review,
+      rating,
+      date: currentTime,
+      productId,
+      userName: fullName,
+      photo: currentUserPhoto,
+      email: user?.email,
+    };
+
+    axiosPublic.post("/reviews", newReview).then((res) => {
+      const insertedId = parseInt(res.data.insertedId);
+      if (insertedId > 0) {
+        toast("Review Added", {
+          icon: "✅",
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      }
+      reviewRefetch();
+    });
+  };
   const location = useLocation();
   return (
     <div>
@@ -122,7 +130,9 @@ const ProductDetailsCard = ({ productDetails }) => {
                 {description}
               </p>
               <p>Price : ${price}</p>
-              <p className="mb-2">Availability : {availability>0 ? "In Stock" : "Out Of Stock"}</p>
+              <p className="mb-2">
+                Availability : {availability > 0 ? "In Stock" : "Out Of Stock"}
+              </p>
               <Rating
                 style={{ maxWidth: 130 }}
                 value={rating}
@@ -179,21 +189,35 @@ const ProductDetailsCard = ({ productDetails }) => {
               </div>
             )}
 
-            {/* <div className="md:w-8/12">
-              { user ? (
-                <form 
-                onSubmit={handleComment} 
-                className="flex flex-col">
+            <div className="md:w-8/12">
+              {user ? (
+                <form onSubmit={handleReview} className="flex flex-col">
                   <textarea
-                    name="comment"
+                    name="review"
                     className="border-2 border-gray-300 p-2 rounded-md mt-4 h-52"
-                    placeholder="Write Your Comment Here . . ."
+                    placeholder="Write Your Review Here . . ."
                   ></textarea>
+                  {/* rating select */}
+                  <select
+                    name="rating"
+                    className="select select-bordered w-full"
+                    required
+                    defaultValue="" // Set default value for the select
+                  >
+                    <option disabled value="">
+                      Select Rating...
+                    </option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
                   <button
                     type="submit"
                     className="bg-ylw w-fit text-white rounded-md p-2 mt-4"
                   >
-                    Post Comment
+                    Post Review
                   </button>
                 </form>
               ) : (
@@ -202,24 +226,24 @@ const ProductDetailsCard = ({ productDetails }) => {
               <div>
                 {isLoading ? (
                   <Loading></Loading>
-                ) : commentsData?.length > 0 ? (
+                ) : reviews?.length > 0 ? (
                   <div>
-                    <h2 className="text-3xl font-semibold mt-10">Comments:</h2>
+                    <h2 className="text-3xl font-semibold mt-10">Reviews:</h2>
                     <div>
-                      {commentsData.map((comment) => (
-                        <CommentCard
-                          key={comment._id}
-                          comment={comment}
-                          refetch={refetch}
-                        ></CommentCard>
+                      {reviews.map((review) => (
+                        <ReviewCard
+                          key={review._id}
+                          review={review}
+                          refetch={reviewRefetch}
+                        ></ReviewCard>
                       ))}
                     </div>
                   </div>
                 ) : (
-                  <p className="mt-12 text-2xl">No Comments Yet</p>
+                  <p className="mt-12 text-2xl">No Reviews Yet</p>
                 )}
               </div>
-            </div> */}
+            </div>
           </div>
         </main>
       </div>
