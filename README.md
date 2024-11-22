@@ -2,13 +2,13 @@
 
 2 User Login - Done
 
-3 Department Browsing - 
+3 Department Browsing - Done
 
-4 Product Detail - 
+4 Product Detail - Done
 
-5 Product Search and Filtering - 
+5 Product Search and Filtering - Done
 
-6 Product Ratings and Reviews - 
+6 Product Ratings and Reviews - Done
 
 7 Shopping Cart Management - 
 
@@ -18,4 +18,4 @@
 
 10 Guest User Checkout - 
 
-11 Update Review and Rating - 
+11 Update Review and Rating - Done
