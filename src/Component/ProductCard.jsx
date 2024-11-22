@@ -7,7 +7,6 @@ import { FaDollarSign, FaStar } from "react-icons/fa6";
 const ProductCard = ({ product }) => {
   const { _id, name, photo, description, price, brand, rating } = product;
 
-  console.log(_id);
   return (
     <div>
       <div className="card card-compact bg-base-100 md:h-[500px]">
