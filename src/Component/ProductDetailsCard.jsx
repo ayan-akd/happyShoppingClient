@@ -95,8 +95,7 @@ const ProductDetailsCard = ({ productDetails }) => {
     };
 
     axiosPublic.post("/reviews", newReview).then((res) => {
-      const insertedId = parseInt(res.data.insertedId);
-      if (insertedId > 0) {
+      if (res.status === 201) {
         toast("Review Added", {
           icon: "✅",
           style: {

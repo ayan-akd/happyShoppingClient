@@ -45,7 +45,8 @@ const ReviewCard = ({ review, refetch }) => {
       .delete(`/reviews/${review?._id}`)
       .then((res) => {
         if (res.status === 200) {
-          toast("Review Deleted", {
+          refetch();
+          const toastId = toast.success("Review Deleted", {
             icon: "✅",
             style: {
               borderRadius: "10px",
@@ -53,11 +54,13 @@ const ReviewCard = ({ review, refetch }) => {
               color: "#fff",
             },
           });
-          refetch();
+          setTimeout(() => {
+            toast.dismiss(toastId);
+          }, 3000);
         }
       })
       .catch((error) => {
-        toast(error.message, {
+        toast.error(error.message, {
           icon: "❌",
           style: {
             borderRadius: "10px",
