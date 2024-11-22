@@ -8,6 +8,7 @@ import { RotateSpinner } from "react-spinners-kit";
 
 const Navbar = () => {
   const { user, signOutUser, userData, roleLoading } = useContext(AuthContext);
+  console.log(userData);
   const logOut = () => {
     signOutUser()
       .then(() => {

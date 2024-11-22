@@ -7,6 +7,8 @@ import axiosPublic from "../Hooks/axiosPublic";
 /* eslint-disable react/prop-types */
 const ProfileCard = ({ userData }) => {
   const { user } = useContext(AuthContext);
+  const currentUserPhoto =
+    user?.photoURL || "https://images2.imgbox.com/2f/46/t0HrsZQn_o.png";
 
   const handleUpdateData = (e) => {
     e.preventDefault();
@@ -16,7 +18,6 @@ const ProfileCard = ({ userData }) => {
     const middleName = formData.get("middleName");
     const lastName = formData.get("lastName");
     const email = formData.get("email");
-    const role = formData.get("role");
     const state = formData.get("state");
     const zip = formData.get("zip");
     const street = formData.get("street");
@@ -42,7 +43,6 @@ const ProfileCard = ({ userData }) => {
         lastName: lastName,
       },
       email: email,
-      role: role,
       state: state,
       zip: zip,
       street: street,
@@ -80,7 +80,10 @@ const ProfileCard = ({ userData }) => {
                 {/* Cover Image */}
                 <div className="w-full rounded-sm bg-[url('https://images.unsplash.com/photo-1449844908441-8829872d2607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw2fHxob21lfGVufDB8MHx8fDE3MTA0MDE1NDZ8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat items-center">
                   {/* Profile Image */}
-                  <div className="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-[url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxwcm9maWxlfGVufDB8MHx8fDE3MTEwMDM0MjN8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat">
+                  <div
+                    className={`mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat`}
+                    style={{ backgroundImage: `url(${currentUserPhoto})` }}
+                  >
                     <div className="bg-white/90 rounded-full w-6 h-6 text-center ml-28 mt-4">
                       <input
                         type="file"
