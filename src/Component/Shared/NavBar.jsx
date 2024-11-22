@@ -90,7 +90,7 @@ const Navbar = () => {
               ? "font-extrabold bg-ylw text-white mr-1"
               : "mr-1"
           }
-          to={"/wishlist"}
+          to={"/cart"}
         >
           Cart
         </NavLink>

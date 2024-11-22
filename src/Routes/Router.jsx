@@ -7,10 +7,10 @@ import Register from "../Pages/Register";
 import AddProduct from "../Pages/AddProduct";
 import PrivateRoute from "./PrivateRoute";
 import AllProducts from "../Pages/AllProducts";
-import Wishlist from "../Pages/Wishlist";
 import Update from "../Pages/Update";
 import Profile from "../Pages/Profile";
 import ProductDetails from "../Pages/ProductDetails";
+import Cart from "../Pages/Cart";
 
 const Router = createBrowserRouter([
   {
@@ -51,10 +51,10 @@ const Router = createBrowserRouter([
         element: <AllProducts></AllProducts>,
       },
       {
-        path: "/wishlist",
+        path: "/cart",
         element: (
           <PrivateRoute>
-            <Wishlist></Wishlist>
+            <Cart></Cart>
           </PrivateRoute>
         ),
       },
