@@ -25,7 +25,7 @@ const AddProduct = () => {
       availability,
       brand,
       type,
-      rating: 0,
+      rating: 4,
       department,
     };
     // send data to the server
