@@ -14,7 +14,7 @@ const Login = () => {
     const password = e.target.password.value;
     signInUser(email, password)
       .then(() => {
-        navigate("/profile");
+        navigate("/");
         toast("Login Successful", {
           icon: "✅",
           style: {

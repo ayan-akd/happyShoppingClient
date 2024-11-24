@@ -87,7 +87,7 @@ const Register = () => {
         updateProfile(result.user, {
           displayName: name,
         });
-        navigate("/profile");
+        navigate("/");
         axiosPublic.post("/users", userInfo);
         toast("Registered successfully", {
           icon: "✅",
