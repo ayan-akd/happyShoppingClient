@@ -61,7 +61,7 @@ const ProfileCard = ({ userData }) => {
           },
         });
 
-        window.location.reload();
+        // window.location.reload();
       }
     });
   };
