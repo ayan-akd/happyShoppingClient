@@ -46,15 +46,8 @@ const SliderX = () => {
 
   return (
     <div ref={sliderRef} className=" keen-slider mx-auto rounded-xl">
-      <div className="overlay-text absolute z-10 text-center rounded-lg p-4 right-1/2 translate-x-1/2 -translate-y-2/4 top-2/3 bg-base-100 bg-opacity-30 opacity-0 md:opacity-100">
-        <h1 className="mb-5 text-5xl font-bold text-black">
-          Elevate Your Lifestyle
-        </h1>
-        <p className="mb-5 text-black">
-          Discover a curated collection of top-notch Electronics, stylish
-          Furniture, and innovative Appliances. Redefine comfort, functionality,
-          and elegance in every corner of your life.
-        </p>
+      <div className="overlay-text absolute z-10 text-center rounded-lg p-4 right-1/2 translate-x-1/2 -translate-y-1/4 top-3/4">
+
         <motion.a
           whileHover={{
             scale: 1.2,
@@ -62,7 +55,7 @@ const SliderX = () => {
           }}
           whileTap={{ scale: 0.9 }}
           href="/products"
-          className="btn bg-ylw hover:bg-ylw text-white border-none"
+          className="btn bg-ylw hover:bg-ylw text-white border-none opacity-90"
         >
           Start Shopping
         </motion.a>
