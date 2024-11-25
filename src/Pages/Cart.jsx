@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import CartCard from "../Component/CartCard";
+import PaymentModal from "../Component/Shared/PaymentModal";
 
 const Cart = () => {
   const { user } = useContext(AuthContext);
@@ -10,6 +11,7 @@ const Cart = () => {
   const [isVoucherApplied, setIsVoucherApplied] = useState(false);
   const [discount, setDiscount] = useState(0);
   const [voucherError, setVoucherError] = useState(""); // State for error message
+  const [show, setShow] = useState(false);
 
   // Fetch cart items from localStorage on component mount
   useEffect(() => {
@@ -42,6 +44,10 @@ const Cart = () => {
     } else {
       setVoucherError("Invalid voucher code"); // Set error message
     }
+  };
+
+  const handleCheckOut = () => {
+    setShow(true);
   };
 
   return (
@@ -139,12 +145,12 @@ const Cart = () => {
                         </dl>
                       </div>
 
-                      <a
-                        href="#"
+                      <button
                         className="flex w-full items-center justify-center rounded-lg bg-ylw px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
+                        onClick={() => handleCheckOut()}
                       >
                         Proceed to Checkout
-                      </a>
+                      </button>
                     </div>
 
                     {/* Voucher Section */}
@@ -180,9 +186,7 @@ const Cart = () => {
                         </p>
                       )}
                       {voucherError && (
-                        <p className="text-red-600 text-sm">
-                          {voucherError}
-                        </p>
+                        <p className="text-red-600 text-sm">{voucherError}</p>
                       )}
                     </div>
                   </div>
@@ -198,6 +202,13 @@ const Cart = () => {
           )}
         </div>
       </div>
+      {show && (
+        <PaymentModal
+          total={total}
+          setShow={setShow}
+          open={true}
+        ></PaymentModal>
+      )}
     </div>
   );
 };
