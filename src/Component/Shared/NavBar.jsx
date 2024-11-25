@@ -1,13 +1,22 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 // import { MdOutlineDarkMode, MdDarkMode } from "react-icons/md";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { RotateSpinner } from "react-spinners-kit";
+import { IoCartOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const { user, signOutUser, userData, roleLoading } = useContext(AuthContext);
+  const { cartCount, setCartCount } = useContext(AuthContext);
+
+  useEffect(() => {
+    // Retrieve the cart from localStorage and set the cart count
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartCount(cart.length); // Set the cart count based on the cart length
+  }, [setCartCount]);
+
   const logOut = () => {
     signOutUser()
       .then(() => {
@@ -92,11 +101,13 @@ const Navbar = () => {
           }
           to={"/cart"}
         >
-          Cart
+          <IoCartOutline></IoCartOutline>
+          {cartCount > 0 && <span className="">{cartCount} Items</span>}
         </NavLink>
       </li>
     </>
   );
+
   return (
     <div className="bg-cyan-100 bg-opacity-50 backdrop-blur-lg left-0 right-0 sticky top-0 z-10">
       <div className="navbar max-w-screen-xl mx-auto p-4">
@@ -215,19 +226,6 @@ const Navbar = () => {
               </Link>
             </div>
           )}
-          {/* <div className="ml-2 flex items-center justify-center">
-            <label className="swap swap-rotate">
-              <input onClick={toggleTheme} type="checkbox" />
-              <div className="swap-on">
-                {" "}
-                <MdDarkMode className="md:text-3xl text-yellow-500"></MdDarkMode>{" "}
-              </div>
-              <div className="swap-off">
-                {" "}
-                <MdOutlineDarkMode className="md:text-3xl text-black"></MdOutlineDarkMode>{" "}
-              </div>
-            </label>
-          </div> */}
         </div>
       </div>
     </div>

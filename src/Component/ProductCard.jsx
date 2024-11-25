@@ -3,10 +3,14 @@ import { motion } from "framer-motion";
 import { PhotoView } from "react-photo-view";
 import { FaDollarSign, FaStar } from "react-icons/fa6";
 import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ product }) => {
   const { _id, name, photo, description, price, brand, rating } = product;
+
+  const {setCartCount} = useContext(AuthContext);
 
   const handleAddToCart = () => {
     const cartItem = {
@@ -31,6 +35,7 @@ const ProductCard = ({ product }) => {
       localStorage.setItem("cart", JSON.stringify(existingCart));
 
       // Show success toast
+      setCartCount(existingCart.length)
       toast("Product Added To Cart", {
         icon: "✅",
         style: {

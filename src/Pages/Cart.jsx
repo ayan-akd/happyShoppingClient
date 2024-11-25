@@ -56,7 +56,7 @@ const Cart = () => {
             <section className="py-8 antialiased md:py-16">
               <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <h1 className="text-3xl md:text-5xl text-center my-12">
-                  {name}'S <span className="text-ylw">Cart</span>
+                  {name}&apos;S <span className="text-ylw">Cart</span>
                 </h1>
                 <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
                   {/* Cart Items */}

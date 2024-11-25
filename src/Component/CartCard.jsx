@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import { AuthContext } from "../Provider/AuthProvider";
 
 /* eslint-disable react/prop-types */
 const CartCard = ({ cartItem, updateCart }) => {
   const { productId, name, photo, price, brand } = cartItem;
   const [quantity, setQuantity] = useState(cartItem.quantity || 1); // Set initial quantity from cartItem
-
+  const { setCartCount } = useContext(AuthContext);
   // Update the quantity in localStorage
   const updateCartInLocalStorage = (updatedCart) => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     if (updateCart) {
       updateCart(updatedCart); // Update the parent component with the new cart state
     }
+    setCartCount(updatedCart.length);
   };
 
   // Handle item removal from localStorage

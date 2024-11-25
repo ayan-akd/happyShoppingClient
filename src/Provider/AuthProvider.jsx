@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
   const [roleLoading, setRoleLoading] = useState(true);
+  const [cartCount,setCartCount] = useState(0);
   //google login
   const googleLogin = () => {
     setLoading(true);
@@ -74,7 +75,9 @@ const AuthProvider = ({ children }) => {
     roleLoading,
     userData,
     products,
-    refetch
+    refetch,
+    cartCount,
+    setCartCount
   };
 
   return (
