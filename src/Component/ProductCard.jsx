@@ -2,10 +2,55 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PhotoView } from "react-photo-view";
 import { FaDollarSign, FaStar } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ product }) => {
   const { _id, name, photo, description, price, brand, rating } = product;
+
+  const handleAddToCart = () => {
+   const cartItem = {
+      productId: _id,
+      name,
+      photo,
+      price,
+      brand,
+      quantity: 1,
+    };
+    //add to local storage
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Check if the item is already in the cart
+    const isItemInCart = existingCart.some((item) => item.productId === _id);
+  
+    if (!isItemInCart) {
+      // Add the new item to the cart
+      existingCart.push(cartItem);
+  
+      // Save the updated cart to localStorage
+      localStorage.setItem("cart", JSON.stringify(existingCart));
+  
+      // Show success toast
+      toast("Product Added To Cart", {
+        icon: "✅",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    } else {
+      // Item is already in the cart, show a message
+      toast("Product Already Added To Cart", {
+        icon: "❌",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    }
+  }
 
   return (
     <div>
@@ -67,6 +112,7 @@ const ProductCard = ({ product }) => {
                 scale: 1.2,
                 transition: { duration: 0.1 },
               }}
+              onClick={handleAddToCart}
               whileTap={{ scale: 0.9 }}
               className="btn hover:bg-ylw bg-ylw text-white btn-sm md:btn-md"
             >
