@@ -10,6 +10,7 @@ import ConfirmToast from "./Shared/ConfirmToast";
 import axiosPublic from "../Hooks/axiosPublic";
 import Loader from "../Hooks/Loader";
 import ReviewCard from "./ReviewCard";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 const ProductDetailsCard = ({ productDetails }) => {
   const {
@@ -116,6 +117,12 @@ const ProductDetailsCard = ({ productDetails }) => {
         <main className="mt-10 px-4">
           <div className="mb-4 md:mb-0 w-full mx-auto relative flex lg:flex-row flex-col-reverse justify-between items-center gap-4">
             <div>
+              <button
+                onClick={() => navigate(-1)}
+                className=" bg-ylw text-white btn mb-10"
+              >
+                <IoArrowBackSharp></IoArrowBackSharp>Go Back
+              </button>
               <h2 className="text-2xl md:text-4xl font-semibold text-gray-800 leading-tight">
                 {name}
               </h2>
