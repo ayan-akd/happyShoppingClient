@@ -9,6 +9,7 @@ const Cart = () => {
   const [voucher, setVoucher] = useState("");
   const [isVoucherApplied, setIsVoucherApplied] = useState(false);
   const [discount, setDiscount] = useState(0);
+  const [voucherError, setVoucherError] = useState(""); // State for error message
 
   // Fetch cart items from localStorage on component mount
   useEffect(() => {
@@ -34,11 +35,12 @@ const Cart = () => {
   // Handle voucher code submission
   const handleApplyVoucher = (e) => {
     e.preventDefault();
-    if (voucher === "HAPPYS") {
+    if (voucher === "HAPPY10") {
       setDiscount(originalPrice * 0.1); // 10% discount
       setIsVoucherApplied(true);
+      setVoucherError(""); // Clear any previous error
     } else {
-      alert("Invalid voucher code");
+      setVoucherError("Invalid voucher code"); // Set error message
     }
   };
 
@@ -175,6 +177,11 @@ const Cart = () => {
                       {isVoucherApplied && (
                         <p className="text-green-600 text-sm">
                           Voucher applied successfully!
+                        </p>
+                      )}
+                      {voucherError && (
+                        <p className="text-red-600 text-sm">
+                          {voucherError}
                         </p>
                       )}
                     </div>

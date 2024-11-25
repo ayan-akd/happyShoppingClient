@@ -4,17 +4,22 @@ import toast from "react-hot-toast";
 /* eslint-disable react/prop-types */
 const CartCard = ({ cartItem, updateCart }) => {
   const { productId, name, photo, price, brand } = cartItem;
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(cartItem.quantity || 1); // Set initial quantity from cartItem
+
+  // Update the quantity in localStorage
+  const updateCartInLocalStorage = (updatedCart) => {
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    if (updateCart) {
+      updateCart(updatedCart); // Update the parent component with the new cart state
+    }
+  };
 
   // Handle item removal from localStorage
   const handleDelete = (id) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const updatedCart = existingCart.filter((item) => item.productId !== id);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    updateCartInLocalStorage(updatedCart);
 
-    if (updateCart) {
-      updateCart(updatedCart);
-    }
     // Show toast notification
     toast.success("Item removed from cart!", {
       icon: "🗑️",
@@ -27,9 +32,30 @@ const CartCard = ({ cartItem, updateCart }) => {
   };
 
   // Handle quantity change
-  const handleIncrement = () => setQuantity((prev) => prev + 1);
+  const handleIncrement = () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+
+    // Update the quantity in the cart stored in localStorage
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const updatedCart = existingCart.map((item) =>
+      item.productId === productId ? { ...item, quantity: newQuantity } : item
+    );
+    updateCartInLocalStorage(updatedCart);
+  };
+
   const handleDecrement = () => {
-    if (quantity > 1) setQuantity((prev) => prev - 1);
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+
+      // Update the quantity in the cart stored in localStorage
+      const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+      const updatedCart = existingCart.map((item) =>
+        item.productId === productId ? { ...item, quantity: newQuantity } : item
+      );
+      updateCartInLocalStorage(updatedCart);
+    }
   };
 
   return (
@@ -85,7 +111,9 @@ const CartCard = ({ cartItem, updateCart }) => {
               </button>
             </div>
             <div className="text-end md:order-4 md:w-32">
-              <p className="text-base font-bold text-gray-900">${price}</p>
+              <p className="text-base font-bold text-gray-900">
+                ${price * quantity} {/* Display price * quantity */}
+              </p>
             </div>
           </div>
 

@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
   const { _id, name, photo, description, price, brand, rating } = product;
 
   const handleAddToCart = () => {
-   const cartItem = {
+    const cartItem = {
       productId: _id,
       name,
       photo,
@@ -22,14 +22,14 @@ const ProductCard = ({ product }) => {
 
     // Check if the item is already in the cart
     const isItemInCart = existingCart.some((item) => item.productId === _id);
-  
+
     if (!isItemInCart) {
       // Add the new item to the cart
       existingCart.push(cartItem);
-  
+
       // Save the updated cart to localStorage
       localStorage.setItem("cart", JSON.stringify(existingCart));
-  
+
       // Show success toast
       toast("Product Added To Cart", {
         icon: "✅",
@@ -50,7 +50,7 @@ const ProductCard = ({ product }) => {
         },
       });
     }
-  }
+  };
 
   return (
     <div>
