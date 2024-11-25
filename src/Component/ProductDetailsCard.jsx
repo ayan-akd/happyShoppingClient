@@ -24,7 +24,7 @@ const ProductDetailsCard = ({ productDetails }) => {
     department,
     availability,
   } = productDetails;
-  const { user, userData, refetch } = useContext(AuthContext);
+  const { user, userData, refetch, setCartCount } = useContext(AuthContext);
   const productId = _id;
   const currentTime = new Date().getTime();
   const fullName =
@@ -37,6 +37,52 @@ const ProductDetailsCard = ({ productDetails }) => {
     activeFillColor: "#FAC827",
     inactiveFillColor: "#dcfce7",
   };
+
+  const handleAddToCart = () => {
+    const cartItem = {
+      productId: _id,
+      name,
+      photo,
+      price,
+      brand,
+      quantity: 1,
+    };
+    //add to local storage
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Check if the item is already in the cart
+    const isItemInCart = existingCart.some((item) => item.productId === _id);
+
+    if (!isItemInCart) {
+      // Add the new item to the cart
+      existingCart.push(cartItem);
+
+      // Save the updated cart to localStorage
+      localStorage.setItem("cart", JSON.stringify(existingCart));
+
+      // Show success toast
+      setCartCount(existingCart.length);
+      toast("Product Added To Cart", {
+        icon: "✅",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    } else {
+      // Item is already in the cart, show a message
+      toast("Product Already Added To Cart", {
+        icon: "❌",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    }
+  };
+
   const handleDelete = () => {
     axiosPublic
       .delete(`/products/${_id}`)
@@ -146,7 +192,12 @@ const ProductDetailsCard = ({ productDetails }) => {
                 itemStyles={myStyles}
               ></Rating>
               <div className="flex gap-4 mt-12 text-lg leading-relaxed w-full">
-                <button className="btn bg-ylw text-white ">Add To Cart</button>
+                <button
+                  onClick={handleAddToCart}
+                  className="btn bg-ylw text-white "
+                >
+                  Add To Cart
+                </button>
                 <div>
                   {userData?.role === "admin" ? (
                     <Link to={`/update/${productId}`}>

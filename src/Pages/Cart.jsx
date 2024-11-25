@@ -28,7 +28,7 @@ const Cart = () => {
     0
   );
   const savings = cartItems.length ? originalPrice * 0.05 : 0; // 5% savings for example
-  const storePickup = cartItems.length ? 99 : 0; // Flat pickup charge
+  const storePickup = cartItems.length ? 9 : 0; // Flat pickup charge
   const tax = cartItems.length ? originalPrice * 0.1 : 0; // 10% tax
   const total = originalPrice - savings + storePickup + tax - discount;
 
@@ -101,7 +101,7 @@ const Cart = () => {
 
                           <dl className="flex items-center justify-between gap-4">
                             <dt className="text-base font-normal text-gray-500">
-                              Store Pickup
+                              Shipping
                             </dt>
                             <dd className="text-base font-medium text-gray-900">
                               ${storePickup.toFixed(2)}

@@ -8,26 +8,46 @@ const AllProducts = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [sortBy, setSortBy] = useState("none");
 
   useEffect(() => {
     if (products) {
-      const results = products.filter((product) => {
+      let results = products?.filter((product) => {
         if (selectedDepartment === "all") {
-          return product.name.toLowerCase().includes(searchValue.toLowerCase());
+          return product?.name
+            .toLowerCase()
+            .includes(searchValue.toLowerCase());
         }
-        const departmentMatch = product.department
-          ? product.department
+        const departmentMatch = product?.department
+          ? product?.department
               .toLowerCase()
               .includes(selectedDepartment.toLowerCase())
           : false;
-        const searchMatch = product.name
+        const searchMatch = product?.name
           .toLowerCase()
           .includes(searchValue.toLowerCase());
         return departmentMatch && searchMatch;
       });
+      if (sortBy === "aToZ") {
+        results = results.sort((a, b) =>
+          a.name.localeCompare(b.name, undefined, {
+            sensitivity: "base",
+          })
+        );
+      } else if (sortBy === "zToA") {
+        results = results.sort((a, b) =>
+          b.name.localeCompare(a.name, undefined, {
+            sensitivity: "base",
+          })
+        );
+      } else if (sortBy === "highPriced") {
+        results = results.sort((a, b) => a.price - b.price);
+      } else if (sortBy === "lowPriced") {
+        results = results.sort((a, b) => b.price - a.price);
+      }
       setFilteredProducts(results);
     }
-  }, [products, searchValue, selectedDepartment]);
+  }, [products, searchValue, selectedDepartment, sortBy]);
   return (
     <div
       className="hero min-h-screen"
@@ -66,7 +86,7 @@ const AllProducts = () => {
               </svg>
             </button>
           </div>
-          <div className="flex justify-center md:justify-end my-12">
+          <div className="flex justify-center md:justify-between my-12">
             <div className="md:w-96">
               <label className="input-group flex">
                 <select
@@ -79,6 +99,22 @@ const AllProducts = () => {
                   <option value="electronics">Electronics</option>
                   <option value="furniture">Furniture</option>
                   <option value="appliances">Appliances</option>
+                </select>
+              </label>
+            </div>
+            <div className="md:w-96 ml-4">
+              <label className="input-group flex">
+                <select
+                  name="sort"
+                  className="select select-bordered w-full"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                >
+                  <option value="none">Default</option>
+                  <option value="aToZ">A &gt; Z</option>
+                  <option value="zToA">Z &gt; A</option>
+                  <option value="lowPriced">Price ( High &gt; Low)</option>
+                  <option value="highPriced">Price ( Low &gt; High)</option>
                 </select>
               </label>
             </div>

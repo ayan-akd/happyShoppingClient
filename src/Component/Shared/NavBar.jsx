@@ -101,7 +101,7 @@ const Navbar = () => {
           }
           to={"/cart"}
         >
-          <IoCartOutline></IoCartOutline>
+          <IoCartOutline className="text-2xl"></IoCartOutline>
           {cartCount > 0 && <span className="">{cartCount} Items</span>}
         </NavLink>
       </li>
