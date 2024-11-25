@@ -5,17 +5,15 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Loading from "./Loading";
 
-const LatestBlogs = () => {
+const TopAppliance = () => {
   const { products, isLoading } = useContext(AuthContext);
 
   if (!isLoading) {
-    const sortedBlogs = products.slice().sort((a, b) => {
-      const timestampA = new Date(a.timestamp);
-      const timestampB = new Date(b.timestamp);
-      return timestampB - timestampA;
-    });
+    const TopApplianceProducts = products.filter((product)=>{
+        return product.department === "appliances"
+    })
 
-    const latestBlogs = sortedBlogs.slice(0, 6);
+    const TopAppliance = TopApplianceProducts.slice(0, 6);
 
     return (
       <div
@@ -26,11 +24,11 @@ const LatestBlogs = () => {
       >
         <div className="max-w-screen-xl mx-auto">
           <h1 className="text-3xl md:text-5xl text-center my-12">
-            Latest <span className="text-ylw">Blogs</span>
+            Top <span className="text-ylw">Appliances</span>
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-            {latestBlogs.map((blog) => (
-              <ProductCard blog={blog} key={blog._id}></ProductCard>
+            {TopAppliance.map((product) => (
+              <ProductCard product={product} key={product._id}></ProductCard>
             ))}
           </div>
           <div className="flex justify-center my-12">
@@ -55,4 +53,4 @@ const LatestBlogs = () => {
   }
 };
 
-export default LatestBlogs;
+export default TopAppliance;

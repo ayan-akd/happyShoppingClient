@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import { PhotoView } from "react-photo-view";
-const NewsLetter2 = () => {
+const NewsLetter = () => {
   const handleSubscribe = (e) => {
     e.preventDefault();
     toast("Thank you for subscribing to our newsletter.", {
@@ -28,14 +28,15 @@ const NewsLetter2 = () => {
         </div>
         <div className="md:w-1/2">
           <h1 className="text-2xl font-bold mb-5 lg:mt-5">
-            FINDING THE PERFECT TRAILS TO HIKE IS EASY WITH{" "}
-            <span className="text-ylw">NEWSLETTER</span>
+            STAY UPDATED WITH THE BEST DEALS ON{" "}
+            <span className="text-ylw">TECH, FURNITURE, & MORE</span>
           </h1>
           <p>
-            Join our newsletter to receive the latest travel tips, inspiring
-            stories, and exclusive offers. Start your journey to new adventures
-            with us.
+            Sign up for our newsletter to get exclusive access to the latest
+            products, special discounts, and expert tips. Don’t miss out on the
+            best deals for your home and lifestyle!
           </p>
+
           <form onSubmit={handleSubscribe} className="flex items-center mt-12">
             <input
               required
@@ -61,4 +62,4 @@ const NewsLetter2 = () => {
   );
 };
 
-export default NewsLetter2;
+export default NewsLetter;
