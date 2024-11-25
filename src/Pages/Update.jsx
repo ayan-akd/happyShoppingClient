@@ -9,7 +9,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 
 const Update = () => {
   const { id } = useParams();
-  const {refetch} = useContext(AuthContext);
+  const { refetch } = useContext(AuthContext);
   const navigate = useNavigate();
   const { data: productDetails, isLoading } = Loader(
     `/products/${id}`,
@@ -148,11 +148,13 @@ const Update = () => {
                 </label>
                 <label className="input-group">
                   <input
-                    type="number"
+                    type="text"
                     name="price"
                     placeholder="$Price..."
-                    defaultValue={productDetails?.price}
                     className="input input-bordered w-full"
+                    pattern="^\d+(\.\d{1,2})?$"
+                    title="Please enter a valid price (e.g., 5.99)"
+                    defaultValue={productDetails?.price}
                     required
                   />
                 </label>

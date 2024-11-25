@@ -10,11 +10,12 @@ import { AuthContext } from "../Provider/AuthProvider";
 const ProductCard = ({ product }) => {
   const { _id, name, photo, description, price, brand, rating } = product;
 
-  const {setCartCount} = useContext(AuthContext);
+  const { user, setCartCount } = useContext(AuthContext);
 
   const handleAddToCart = () => {
     const cartItem = {
       productId: _id,
+      userEmail: user?.email || "",
       name,
       photo,
       price,
@@ -35,7 +36,7 @@ const ProductCard = ({ product }) => {
       localStorage.setItem("cart", JSON.stringify(existingCart));
 
       // Show success toast
-      setCartCount(existingCart.length)
+      setCartCount(existingCart.length);
       toast("Product Added To Cart", {
         icon: "✅",
         style: {

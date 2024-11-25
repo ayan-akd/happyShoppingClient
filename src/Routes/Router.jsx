@@ -52,15 +52,11 @@ const Router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: (
-          <PrivateRoute>
-            <Cart></Cart>
-          </PrivateRoute>
-        ),
+        element: <Cart></Cart>,
       },
       {
         path: "/products/:id",
-        element: <ProductDetails></ProductDetails>
+        element: <ProductDetails></ProductDetails>,
       },
       {
         path: "/profile",

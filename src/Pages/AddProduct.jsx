@@ -127,11 +127,12 @@ const AddProduct = () => {
               </label>
               <label className="input-group">
                 <input
-                  type="number"
-                  name="price"
-                  placeholder="$Price..."
-                  className="input input-bordered w-full"
-                  required
+                    type="text"
+                    name="price"
+                    placeholder="$Price..."
+                    className="input input-bordered w-full"
+                    pattern="^\d+(\.\d{1,2})?$"
+                    title="Please enter a valid price (e.g., 5.99)"
                 />
               </label>
             </div>

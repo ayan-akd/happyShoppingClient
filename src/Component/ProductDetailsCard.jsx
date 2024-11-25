@@ -41,6 +41,7 @@ const ProductDetailsCard = ({ productDetails }) => {
   const handleAddToCart = () => {
     const cartItem = {
       productId: _id,
+      userEmail: user?.email || '',
       name,
       photo,
       price,
