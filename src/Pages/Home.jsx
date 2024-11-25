@@ -60,9 +60,9 @@ const Home = () => {
       <TopFurniture />
       <TopAppliance />
       <div ref={ref}>
-        <Tips />
+        {/* <Tips /> */}
         <NewsLetter />
-        <Items />
+        {/* <Items /> */}
       </div>
       {inView ? (
         <motion.button

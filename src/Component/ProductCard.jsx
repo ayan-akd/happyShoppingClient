@@ -79,10 +79,8 @@ const ProductCard = ({ product }) => {
         <div className="card-body">
           <Link to={`/products/${_id}`}>
             <div title={name} className="card-title">
-              <div>
-                {name.length > 62 ? <p>{name.slice(0, 55)}. . . . </p> : name}
-              </div>
-              <div className="absolute right-0 flex items-center pr-3 text-ylw">
+              <div className="truncate max-w-[70%]">{name}</div>
+              <div className="absolute right-0 flex items-center pr-3 text-ylw whitespace-nowrap">
                 <FaDollarSign className="text-rose-600" />
                 {price}
               </div>
