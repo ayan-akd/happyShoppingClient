@@ -4,7 +4,7 @@ import CartCard from "../Component/CartCard";
 import PaymentModal from "../Component/Shared/PaymentModal";
 
 const Cart = () => {
-  const { user } = useContext(AuthContext);
+  const { user, userData } = useContext(AuthContext);
   const name = user?.displayName?.toUpperCase() || "USER";
   const [cartItems, setCartItems] = useState([]);
   const [voucher, setVoucher] = useState("");
@@ -46,8 +46,32 @@ const Cart = () => {
     }
   };
 
-  const handleCheckOut = () => {
+  const handleConfirmAddress = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const email = userData?.email;
+    const state = formData.get("state");
+    const zip = formData.get("zip");
+    const street = formData.get("street");
+    const cardNumber = formData.get("cardNumber");
+    const city = formData.get("city");
+
+    const newAddress = {
+      email,
+      state,
+      zip,
+      street,
+      cardNumber,
+      city,
+    };
+    localStorage.setItem("newAddress", JSON.stringify(newAddress));
+    document.getElementById("confirmAddress").close();
     setShow(true);
+  };
+
+  const handleCheckOut = () => {
+    document.getElementById("confirmAddress").showModal();
   };
 
   return (
@@ -202,6 +226,8 @@ const Cart = () => {
           )}
         </div>
       </div>
+
+      {/* payment modal  */}
       {show && (
         <PaymentModal
           total={total}
@@ -209,6 +235,80 @@ const Cart = () => {
           open={true}
         ></PaymentModal>
       )}
+
+      {/* modal here  */}
+      {/* Open the modal using document.getElementById('ID').showModal() method */}
+      <dialog id={"confirmAddress"} className="modal">
+        <div className="modal-box">
+          <h1 className="text-center text-4xl italic font-semibold mb-12">
+            Confirm <span className="text-ylw">Shipping Address</span>
+          </h1>
+          <form
+            className="flex flex-col form-control"
+            onSubmit={handleConfirmAddress}
+          >
+            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+              <div className="w-full">
+                <h3 className=" mb-2">State</h3>
+                <input
+                  type="text"
+                  name="state"
+                  className="text-grey p-4 w-full border-2 rounded-lg "
+                  defaultValue={userData?.state}
+                />
+              </div>
+              <div className="w-full">
+                <h3 className=" mb-2">City</h3>
+                <input
+                  name="city"
+                  className="text-grey p-4 w-full border-2 rounded-lg"
+                  defaultValue={userData?.city}
+                />
+              </div>
+            </div>
+
+            {/* fourth row  */}
+            <div className="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
+              <div className="w-full">
+                <h3 className=" mb-2">Street</h3>
+                <input
+                  type="text"
+                  name="street"
+                  className="text-grey p-4 w-full border-2 rounded-lg "
+                  defaultValue={userData?.street}
+                />
+              </div>
+              <div className="w-full">
+                <h3 className=" mb-2">Zip</h3>
+                <input
+                  name="zip"
+                  className="text-grey p-4 w-full border-2 rounded-lg"
+                  defaultValue={userData?.zip}
+                />
+              </div>
+            </div>
+
+            {/* fifth row  */}
+            <div className="w-full">
+              <h3 className=" mb-2">Card Number</h3>
+              <input
+                name="cardNumber"
+                className="text-grey p-4 w-full border-2 rounded-lg"
+                defaultValue={userData?.cardNumber}
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-ylw w-fit text-white rounded-md p-2 mt-4 mx-auto"
+            >
+              Confirm Address
+            </button>
+          </form>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </div>
   );
 };

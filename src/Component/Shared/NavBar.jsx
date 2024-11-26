@@ -155,7 +155,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-            <div className="dropdown dropdown-bottom dropdown-end flex items-center">
+            <div className="dropdown dropdown-bottom dropdown-end flex items-center z-[60]">
               <div className="md:visible invisible">
                 <p className="text-lg md:mr-5">
                   {roleLoading ? (
@@ -176,7 +176,7 @@ const Navbar = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box"
+                className="mt-3 z-[10] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box"
               >
                 <li>
                   <p className="text-xl md:hidden">

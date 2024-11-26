@@ -10,6 +10,7 @@ const CheckOutForm = ({ total, closeModal }) => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  const newAddress = JSON.parse(localStorage.getItem("newAddress")) || [];
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -83,11 +84,11 @@ const CheckOutForm = ({ total, closeModal }) => {
             price: item.price,
             quantity: item.quantity,
           })),
-          state: userData?.state,
-          zip: userData?.zip,
-          street: userData?.street,
-          cardNumber: userData?.cardNumber,
-          city: userData?.city,
+          state: newAddress.state || userData?.state,
+          zip: newAddress.zip || userData?.zip,
+          street: newAddress.street || userData?.street,
+          cardNumber: newAddress.cardNumber || userData?.cardNumber,
+          city: newAddress.city || userData?.city,
           total: total,
           transactionId: paymentIntent.id,
         };
