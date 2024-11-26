@@ -92,7 +92,7 @@ const CheckOutForm = ({ total, closeModal }) => {
           total: total,
           transactionId: paymentIntent.id,
         };
-        axiosPublic.post("orders", order).then((res) => {
+        axiosPublic.post("/orders", order).then((res) => {
           console.log(res.data);
           if (res.status === 201) {
             toast.success("Order Placed Successfully", {
