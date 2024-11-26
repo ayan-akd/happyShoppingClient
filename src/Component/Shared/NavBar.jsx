@@ -159,7 +159,7 @@ const Navbar = () => {
               <div className="md:visible invisible">
                 <p className="text-lg md:mr-5">
                   {roleLoading ? (
-                    <RotateSpinner size={45} color="#59815B" loading={true} />
+                    <RotateSpinner size={45} color="#FAC827" loading={true} />
                   ) : (
                     fullName
                   )}

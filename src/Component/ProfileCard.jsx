@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
-import { IoCameraOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import axiosPublic from "../Hooks/axiosPublic";
 
@@ -77,38 +76,13 @@ const ProfileCard = ({ userData }) => {
               <h2 className="text-grey text-sm mb-4 ">Your Profile</h2>
               <form onSubmit={handleUpdateData} className="form-control">
                 {/* Cover Image */}
-                <div className="w-full rounded-sm bg-[url('https://images.unsplash.com/photo-1449844908441-8829872d2607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw2fHxob21lfGVufDB8MHx8fDE3MTA0MDE1NDZ8MA&ixlib=rb-4.0.3&q=80&w=1080')] bg-cover bg-center bg-no-repeat items-center">
+                <div className="w-full rounded-sm items-center">
                   {/* Profile Image */}
                   <div
                     className={`mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat`}
                     style={{ backgroundImage: `url(${currentUserPhoto})` }}
-                  >
-                    <div className="bg-white/90 rounded-full w-6 h-6 text-center ml-28 mt-4">
-                      <input
-                        type="file"
-                        name="profile"
-                        id="upload_profile"
-                        hidden
-                      />
-                      <label htmlFor="upload_profile">
-                        <IoCameraOutline className="text-blue-600 mx-auto text-xl" />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="flex justify-end">
-                    <input type="file" name="cover" id="upload_cover" hidden />
-                    <label
-                      htmlFor="upload_cover"
-                      className="bg-white flex items-center gap-1 rounded-tl-md px-2 text-center font-semibold cursor-pointer"
-                    >
-                      Cover
-                      <IoCameraOutline className="text-blue-600 mx-auto text-xl" />
-                    </label>
-                  </div>
+                  ></div>
                 </div>
-                <h2 className="text-center mt-1 font-semibold ">
-                  Upload Profile and Cover Image
-                </h2>
 
                 {/* name  */}
                 <div className="flex lg:flex-row flex-col gap-2 justify-center w-full">
@@ -176,6 +150,7 @@ const ProfileCard = ({ userData }) => {
                       name="email"
                       className="text-grey p-4 w-full border-2 rounded-lg"
                       defaultValue={userData?.email}
+                      readOnly
                     />
                   </div>
                 </div>
