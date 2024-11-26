@@ -92,8 +92,8 @@ const CheckOutForm = ({ total, closeModal }) => {
           total: total,
           transactionId: paymentIntent.id,
         };
+
         axiosPublic.post("/orders", order).then((res) => {
-          console.log(res.data);
           if (res.status === 201) {
             toast.success("Order Placed Successfully", {
               icon: "✅",
@@ -103,11 +103,11 @@ const CheckOutForm = ({ total, closeModal }) => {
                 color: "#fff",
               },
             });
+            closeModal();
+            localStorage.removeItem("cart");
+            window.location.reload();
           }
         });
-        closeModal();
-        localStorage.removeItem("cart");
-        window.location.reload();
       }
     }
     setLoading(false);
