@@ -105,14 +105,18 @@ const CheckOutForm = ({ total, closeModal }) => {
                 },
               });
               closeModal();
-              localStorage.removeItem("cart");
-              window.location.reload();
+              setTimeout(() => {
+                localStorage.removeItem("cart");
+                window.location.reload();
+              }, 1000);
             }
           });
         }
         closeModal();
-        localStorage.removeItem("cart");
-        window.location.reload();
+        setTimeout(() => {
+          localStorage.removeItem("cart");
+          window.location.reload();
+        }, 1000);
       }
     }
     setLoading(false);
