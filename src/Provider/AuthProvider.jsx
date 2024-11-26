@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
   const [roleLoading, setRoleLoading] = useState(true);
-  const [cartCount,setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
   //google login
   const googleLogin = () => {
     setLoading(true);
@@ -44,7 +44,11 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const { data: products, isLoading, refetch } = Loader("/products", "products");
+  const {
+    data: products,
+    isLoading,
+    refetch,
+  } = Loader("/products", "products");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -77,7 +81,7 @@ const AuthProvider = ({ children }) => {
     products,
     refetch,
     cartCount,
-    setCartCount
+    setCartCount,
   };
 
   return (

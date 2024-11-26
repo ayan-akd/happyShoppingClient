@@ -60,8 +60,7 @@ const ProfileCard = ({ userData }) => {
             color: "#fff",
           },
         });
-
-        // window.location.reload();
+        window.location.reload();
       }
     });
   };

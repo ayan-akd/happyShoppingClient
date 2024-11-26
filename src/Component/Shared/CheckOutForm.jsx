@@ -77,26 +77,13 @@ const CheckOutForm = ({ total, closeModal }) => {
           }
         );
         closeModal();
-        const payload = {
-          name: user?.displayName,
-          email: user?.email,
-          paymentIntentId: paymentIntent.id,
-        };
-        axiosPublic
-          .post(`/send-mail?email=${user?.email}`, payload)
-          .then((res) => {
-            if (res.status === 201) {
-              toast.success("Email Sent with Payment TXN ID", {
-                icon: "✅",
-                style: {
-                  borderRadius: "10px",
-                  background: "#333",
-                  color: "#fff",
-                },
-              });
-            }
-          });
-
+        localStorage.removeItem("cart");
+        window.location.reload();
+        // const payload = {
+        //   name: user?.displayName,
+        //   email: user?.email,
+        //   paymentIntentId: paymentIntent.id,
+        // };
         // axiosPublic
         //   .put(
         //     `/assigned-bookings/${rowData?._id}?email=${user?.email}`,

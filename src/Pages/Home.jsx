@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Items from "../Component/Items";
+// import Items from "../Component/Items";
 import NewsLetter from "../Component/NewsLetter";
-import Tips from "../Component/Tips";
+// import Tips from "../Component/Tips";
 import { motion, useAnimation } from "framer-motion";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { useInView } from "react-intersection-observer";
