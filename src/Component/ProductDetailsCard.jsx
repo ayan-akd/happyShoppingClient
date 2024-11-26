@@ -47,7 +47,6 @@ const ProductDetailsCard = ({ productDetails }) => {
       const checkItemOrdered = orders.some((order) =>
         order?.products?.some((product) => product.productId === _id)
       );
-      console.log(checkItemOrdered);
       setItemOrdered(checkItemOrdered);
     }
   }, [orders, user, _id]);

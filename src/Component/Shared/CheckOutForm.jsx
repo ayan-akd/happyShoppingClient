@@ -44,7 +44,6 @@ const CheckOutForm = ({ total, closeModal }) => {
     if (error) {
       setError(error.message);
     } else {
-      console.log("payment method", "paymentMethod");
       setError("");
     }
 
