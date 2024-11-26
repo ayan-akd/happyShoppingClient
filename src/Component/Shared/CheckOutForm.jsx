@@ -55,7 +55,7 @@ const CheckOutForm = ({ total, closeModal }) => {
           card: card,
           billing_details: {
             email: user?.email || "dummy@email.com",
-            name: user?.displayName || "dummy@email.com",
+            name: user?.displayName || "anonymous",
           },
         },
       });
