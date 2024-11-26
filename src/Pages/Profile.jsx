@@ -9,7 +9,6 @@ const Profile = () => {
   const {
     data: orders,
     isLoading,
-    refetch,
   } = Loader(`/orders?email=${userData?.email}`, "orders");
 
   return (

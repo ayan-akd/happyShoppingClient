@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -25,6 +25,7 @@ const ProductDetailsCard = ({ productDetails }) => {
     availability,
   } = productDetails;
   const { user, userData, refetch, setCartCount } = useContext(AuthContext);
+  const [itemOrdered, setItemOrdered] = useState(false);
   const productId = _id;
   const currentTime = new Date().getTime();
   const fullName =
@@ -37,11 +38,24 @@ const ProductDetailsCard = ({ productDetails }) => {
     activeFillColor: "#FAC827",
     inactiveFillColor: "#dcfce7",
   };
+  const { data: orders } = user
+    ? Loader(`/orders?email=${userData?.email}`, "orders")
+    : { data: null }; // Ensure Loader is called only if user exists
+
+  useEffect(() => {
+    if (orders && user) {
+      const checkItemOrdered = orders.some((order) =>
+        order?.products?.some((product) => product.productId === _id)
+      );
+      console.log(checkItemOrdered);
+      setItemOrdered(checkItemOrdered);
+    }
+  }, [orders, user, _id]);
 
   const handleAddToCart = () => {
     const cartItem = {
       productId: _id,
-      userEmail: user?.email || '',
+      userEmail: user?.email || "",
       name,
       photo,
       price,
@@ -130,32 +144,43 @@ const ProductDetailsCard = ({ productDetails }) => {
 
   const handleReview = (e) => {
     e.preventDefault();
-    const review = e.target.review.value;
-    const rating = e.target.rating.value;
-    const newReview = {
-      review,
-      rating,
-      date: currentTime,
-      productId,
-      userName: fullName,
-      photo: currentUserPhoto,
-      email: user?.email,
-    };
+    if (itemOrdered) {
+      const review = e.target.review.value;
+      const rating = e.target.rating.value;
+      const newReview = {
+        review,
+        rating,
+        date: currentTime,
+        productId,
+        userName: fullName,
+        photo: currentUserPhoto,
+        email: user?.email,
+      };
 
-    axiosPublic.post("/reviews", newReview).then((res) => {
-      if (res.status === 201) {
-        toast("Review Added", {
-          icon: "✅",
-          style: {
-            borderRadius: "10px",
-            background: "#333",
-            color: "#fff",
-          },
-        });
-      }
-      reviewRefetch();
-      e.target.reset();
-    });
+      axiosPublic.post("/reviews", newReview).then((res) => {
+        if (res.status === 201) {
+          toast("Review Added", {
+            icon: "✅",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+        }
+        reviewRefetch();
+        e.target.reset();
+      });
+    } else {
+      toast("You must buy this product to review", {
+        icon: "❌",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+    }
   };
   const location = useLocation();
   return (
