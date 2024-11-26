@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import CartCard from "../Component/CartCard";
 import PaymentModal from "../Component/Shared/PaymentModal";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const { user, userData } = useContext(AuthContext);
@@ -56,6 +57,18 @@ const Cart = () => {
     const street = formData.get("street");
     const cardNumber = formData.get("cardNumber");
     const city = formData.get("city");
+
+    if (!/^\d{16}$/.test(cardNumber)) {
+      toast("Card number must be exactly 16 digits", {
+        icon: "❌",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      return;
+    }
 
     const newAddress = {
       email,
