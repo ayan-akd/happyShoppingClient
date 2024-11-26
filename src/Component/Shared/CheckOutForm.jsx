@@ -18,13 +18,13 @@ const CheckOutForm = ({ total, closeModal }) => {
   const price = total;
   useEffect(() => {
     axiosPublic
-      .post(`/payment?email=${user?.email}`, {
+      .post("/payment", {
         price: price,
       })
       .then((res) => {
         setClientSecret(res.data.clientSecret);
       });
-  }, [price, user?.email]);
+  }, [price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,8 +54,8 @@ const CheckOutForm = ({ total, closeModal }) => {
         payment_method: {
           card: card,
           billing_details: {
-            email: user?.email || "anonymous",
-            name: user?.displayName || "anonymous",
+            email: user?.email || "dummy@email.com",
+            name: user?.displayName || "dummy@email.com",
           },
         },
       });
@@ -77,37 +77,42 @@ const CheckOutForm = ({ total, closeModal }) => {
 
         // post order into database
         const order = {
-          email: userData.email,
-          products: cartItems.map((item) => ({
-            productId: item.productId,
-            productName: item.name,
-            price: item.price,
-            quantity: item.quantity,
+          email: userData?.email,
+          products: cartItems?.map((item) => ({
+            productId: item?.productId,
+            productName: item?.name,
+            price: item?.price,
+            quantity: item?.quantity,
           })),
-          state: newAddress.state || userData?.state,
-          zip: newAddress.zip || userData?.zip,
-          street: newAddress.street || userData?.street,
-          cardNumber: newAddress.cardNumber || userData?.cardNumber,
-          city: newAddress.city || userData?.city,
+          state: newAddress?.state || userData?.state,
+          zip: newAddress?.zip || userData?.zip,
+          street: newAddress?.street || userData?.street,
+          cardNumber: newAddress?.cardNumber || userData?.cardNumber,
+          city: newAddress?.city || userData?.city,
           total: total,
-          transactionId: paymentIntent.id,
+          transactionId: paymentIntent?.id,
         };
 
-        axiosPublic.post("/orders", order).then((res) => {
-          if (res.status === 201) {
-            toast.success("Order Placed Successfully", {
-              icon: "✅",
-              style: {
-                borderRadius: "10px",
-                background: "#333",
-                color: "#fff",
-              },
-            });
-            closeModal();
-            localStorage.removeItem("cart");
-            window.location.reload();
-          }
-        });
+        if (user) {
+          axiosPublic.post("/orders", order).then((res) => {
+            if (res.status === 201) {
+              toast.success("Order Placed Successfully", {
+                icon: "✅",
+                style: {
+                  borderRadius: "10px",
+                  background: "#333",
+                  color: "#fff",
+                },
+              });
+              closeModal();
+              localStorage.removeItem("cart");
+              window.location.reload();
+            }
+          });
+        }
+        closeModal();
+        localStorage.removeItem("cart");
+        window.location.reload();
       }
     }
     setLoading(false);
