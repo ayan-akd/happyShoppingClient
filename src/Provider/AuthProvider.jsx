@@ -61,8 +61,9 @@ const AuthProvider = ({ children }) => {
           setUserData(res.data);
           setRoleLoading(false);
         });
-        
       }
+
+      !currentUser && localStorage.removeItem("cart");
     });
     return () => {
       unsubscribe();

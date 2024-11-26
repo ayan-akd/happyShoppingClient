@@ -144,7 +144,7 @@ const CheckOutForm = ({ total, closeModal }) => {
 
         <div className="text-center my-8">
           <button
-            className="btn text-white bg-lime-600"
+            className="btn text-white bg-ylw"
             type="submit"
             disabled={!stripe || !clientSecret}
           >
