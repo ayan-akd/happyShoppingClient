@@ -6,10 +6,10 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
 const CheckOutForm = ({ total, closeModal }) => {
-  const { user } = useContext(AuthContext);
+  const { user, userData } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
-
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -42,7 +42,6 @@ const CheckOutForm = ({ total, closeModal }) => {
       card,
     });
     if (error) {
-      console.log("payment error", error);
       setError(error.message);
     } else {
       console.log("payment method", "paymentMethod");
@@ -63,7 +62,6 @@ const CheckOutForm = ({ total, closeModal }) => {
     if (confirmError) {
       setError(confirmError.message);
     } else {
-      console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
         toast.success(
           `Payment Successful. Transaction ID: ${paymentIntent.id}`,
@@ -76,28 +74,40 @@ const CheckOutForm = ({ total, closeModal }) => {
             },
           }
         );
+
+        // post order into database
+        const order = {
+          email: userData.email,
+          products: cartItems.map((item) => ({
+            productId: item.productId,
+            productName: item.name,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+          state: userData?.state,
+          zip: userData?.zip,
+          street: userData?.street,
+          cardNumber: userData?.cardNumber,
+          city: userData?.city,
+          total: total,
+          transactionId: paymentIntent.id,
+        };
+        axiosPublic.post("/orders", order).then((res) => {
+          console.log(res.data);
+          if (res.status === 201) {
+            toast.success("Order Placed Successfully", {
+              icon: "✅",
+              style: {
+                borderRadius: "10px",
+                background: "#333",
+                color: "#fff",
+              },
+            });
+          }
+        });
         closeModal();
         localStorage.removeItem("cart");
         window.location.reload();
-        // const payload = {
-        //   name: user?.displayName,
-        //   email: user?.email,
-        //   paymentIntentId: paymentIntent.id,
-        // };
-        // axiosPublic
-        //   .put(
-        //     `/assigned-bookings/${rowData?._id}?email=${user?.email}`,
-        //     status
-        //   )
-        //   .then((res) => {
-        //     if (res.status === 201) {
-        //       refetch();
-        //       closeModal();
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
       }
     }
     setLoading(false);
